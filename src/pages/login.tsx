@@ -8,10 +8,21 @@ import { useTranslation } from 'react-i18next';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/initSupabase';
+import { useRouter } from 'next/router';
 
 const Login = () => {
-  const { t, i18n } = useTranslation('common'); // 'common' fait référence à common.json
+  type LoginType = {
+    email: string;
+    password: string;
+  };
 
+  const { t, i18n } = useTranslation('common'); // 'common' fait référence à common.json
+  const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [ready, setReady] = useState(false); // Ajout d'un état pour retarder le rendu
 
   useEffect(() => {
@@ -19,6 +30,26 @@ const Login = () => {
       setReady(true); // Indiquer que le composant est prêt à rendre côté client
     }
   }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setError(error.message); // Enregistre le message d'erreur
+    } else {
+      const user = data?.user; // Accédez à l'utilisateur à partir de `data`
+      console.log('Utilisateur connecté:', user);
+      // Rediriger l'utilisateur vers la page d'accueil
+      if (user) {
+        router.push('/'); // Redirige vers la page d'accueil
+      }
+    }
+  };
 
   if (!ready) return null;
 
@@ -30,10 +61,10 @@ const Login = () => {
             <h1 className='text-3xl font-bold'>{t('login')}</h1>
             <p className='text-balance text-muted-foreground'>{t('enter your email below to login to your account')}</p>
           </div>
-          <div className='grid gap-4'>
+          <form onSubmit={handleLogin} className='grid gap-4'>
             <div className='grid gap-2'>
               <Label htmlFor='email'>Email</Label>
-              <Input id='email' type='email' placeholder='m@example.com' required />
+              <Input id='email' type='email' placeholder='m@example.com' required value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className='grid gap-2'>
               <div className='flex items-center'>
@@ -42,18 +73,19 @@ const Login = () => {
                   {t('forgot your password?')}
                 </Link>
               </div>
-              <Input id='password' type='password' required />
+              <Input id='password' type='password' required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <Button type='submit' className='w-full'>
               {t('login')}
             </Button>
+            {error && <p className='text-red-500'>{error}</p>} {/* Afficher l'erreur ici */}
             <Button variant='outline' className='w-full'>
               {t('login with Google')}
             </Button>
-          </div>
+          </form>
           <div className='mt-4 text-center text-sm'>
             <span>{t('don’t have an account?')}</span>
-            <Link href='#' className='underline'>
+            <Link href='/register' className='underline'>
               {t('sign up')}
             </Link>
           </div>

@@ -17,3 +17,6 @@ declare module '*.svg' {
 declare module 'clsx' {
   export function clsx(...args: any[]): string;
 }
+
+declare module '@radix-ui/react-slot';
+declare module 'class-variance-authority';
