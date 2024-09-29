@@ -1,0 +1,15 @@
+{
+  "hello": "Bonjour",
+  "welcome": "Bienvenue sur notre site",
+  "login": "Se connecter",
+  "enter your email below to login to your account": "Entrez votre email ci-dessous pour vous connecter à votre compte",
+  "password": "Mot de passe",
+  "don’t have an account?": "Vous n'avez pas de compte ?",
+  "sign up": "S'inscrire",
+  "forgot your password?": "Mot de passe oublié ?",
+  "login with Google": "Se connecter avec Google",
+  "baseline": "Soutenir les photographes, inspirer les collectionneurs",
+  "baseline two": "Une plateforme dédiée où les photographes vendent leur art et les collectionneurs trouvent des pièces uniques, tout en soutenant l'artiste derrière l'objectif.",
+  "hometext one": "Dans un monde où l'image est omniprésente, il est essentiel de se rappeler que derrière chaque photo, il y a un artiste. Soutenir les photographes, en particulier les amateurs ou les artistes émergents, est plus que jamais crucial. Ils capturent des moments uniques, des paysages fascinants, des émotions brutes, et souvent, leur travail mérite une reconnaissance et une visibilité qu'ils n'ont pas toujours les moyens d'obtenir.",
+	"brand": "Picsell"
+}
