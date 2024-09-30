@@ -7,47 +7,18 @@ import { useEffect, useState } from 'react';
 import TextBox from '@/app/compo/homepage/TextBox';
 import CarousselHome from '@/app/compo/caroussel/CarousselHome';
 import CarousselProductHome from '@/app/compo/caroussel/CarousselProductHome';
-import {supabase} from '@/lib/initSupabase';
 
 export default function Home() {
-
-	type NoteType = {
-		id: number;      // bigInt en PostgreSQL correspond à number
-		title: string;   // text en PostgreSQL correspond à string
-	};
   const { t } = useTranslation('common');
+  const [ready, setReady] = useState(false);
 
-	const [ready, setReady] = useState(false);
-	const [getNotes, setNotes] = useState<NoteType[]>([]);
-	
-	const fetchCountries = async () => {
-		const { data: notes, error } = await supabase
-    .from('notes') 
-    .select('*')
-    .order('title', { ascending: true });
-
-		console.log("Notes:", notes);
-console.log("Error:", error);
-
-    if (error) {
-        console.error("Error fetching notes:", error);
-        return;
-    }
-
-		if (notes) {
-			setNotes(notes as NoteType[]); // Utilisez un cast si nécessaire
-	}
-};
-	useEffect(() => {
-		fetchCountries();
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       setReady(true);
     }
   }, []);
 
   if (!ready) return null;
-
-	console.log(getNotes);
 
   return (
     <>
@@ -62,8 +33,8 @@ console.log("Error:", error);
         <TextBox text={t('baseline two')} style='text-md font-bold text-center' />
       </div>
       <CarousselHome />
-			<CarousselProductHome />
-		</>
+      <CarousselProductHome />
+    </>
   );
 }
 

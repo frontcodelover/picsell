@@ -43,7 +43,8 @@ const Login = () => {
       setError(error.message); // Enregistre le message d'erreur
     } else {
       const user = data?.user; // Accédez à l'utilisateur à partir de `data`
-      console.log('Utilisateur connecté:', user);
+			localStorage.setItem('user', JSON.stringify(user));
+			localStorage.setItem('currentUserId', user.id);
       // Rediriger l'utilisateur vers la page d'accueil
       if (user) {
         router.push('/'); // Redirige vers la page d'accueil

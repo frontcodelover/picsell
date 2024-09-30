@@ -12,10 +12,9 @@ import { supabase } from '@/lib/initSupabase';
 import { useRouter } from 'next/router';
 import { AuthResponse } from '@supabase/supabase-js';
 
-
 const Register = () => {
-	const { t } = useTranslation('common');
-	const router = useRouter()
+  const { t } = useTranslation('common');
+  const router = useRouter();
 
   const [ready, setReady] = useState(false);
   const [email, setEmail] = useState('');
@@ -36,13 +35,25 @@ const Register = () => {
       password,
     });
 
+    // ajouter une methode qui mets à jour la table profiles avec l'user_id
+
+    const { data: profile, error: profileError } = await supabase.from('profiles').insert({
+      user_id: data?.user?.id,
+      email: data?.user?.email,
+    });
+
+    if (profileError) {
+      console.error('Error fetching profile:', profileError);
+      return;
+    }
+
     if (error) {
       setError(error.message); // Assurez-vous que vous extrayez le message d'erreur
     } else {
       const user = data?.user;
       console.log('Utilisateur inscrit:', user);
       if (user) {
-        router.push('/login');
+        router.push('/profile');
       }
     }
   };
@@ -56,24 +67,11 @@ const Register = () => {
           <form onSubmit={handleRegister} className='grid gap-4'>
             <div className='grid gap-2'>
               <Label htmlFor='email'>Email</Label>
-              <Input 
-                id='email' 
-                type='email' 
-                placeholder='m@example.com' 
-                required 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-              />
+              <Input id='email' type='email' placeholder='m@example.com' required value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='password'>{t('password')}</Label>
-              <Input 
-                id='password' 
-                type='password' 
-                required 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-              />
+              <Input id='password' type='password' required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <Button type='submit' className='w-full'>
               {t('register')}
