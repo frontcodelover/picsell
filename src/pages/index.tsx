@@ -21,7 +21,7 @@ export default function Home() {
   if (!ready) return null;
 
   return (
-    <>
+    <main className='bg-muted'>
       <div className='relative'>
         <Image src={HomepageImg} alt='homepage' className='h-[400px] w-screen object-cover' />
         <div className='absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50'>
@@ -34,7 +34,7 @@ export default function Home() {
       </div>
       <CarousselHome />
       <CarousselProductHome />
-    </>
+    </main>
   );
 }
 

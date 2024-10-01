@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Menu = () => {
   return (
     <nav className='grid gap-4 text-sm text-muted-foreground' x-chunk='dashboard-04-chunk-0'>
-      <Link href='/profile' className='font-semibold text-primary'>
+      <Link href='/profile/informations' className='font-semibold text-primary'>
         Informations
       </Link>
       <Link href='/profile/security'>Sécurité</Link>

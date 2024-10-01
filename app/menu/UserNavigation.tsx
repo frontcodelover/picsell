@@ -11,8 +11,6 @@ const UserNavigation = () => {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [ready, setReady] = useState(false); // Ajout d'un état pour retarder le rendu
 	
-  let storageUserId: string = '';
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setReady(true); // Indiquer que le composant est prêt à rendre côté client
@@ -56,7 +54,7 @@ const UserNavigation = () => {
         {currentUserId ? (
           <>
             <NavigationMenuItem>
-              <Link href='/profile' legacyBehavior passHref>
+              <Link href='/profile/informations' legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>{t('profile')}</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

@@ -61,6 +61,9 @@ const config: Config = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+	plugins: [
+	require("tailwindcss-animate"),
+	require('@tailwindcss/forms'), // Ajoute ce plugin pour styliser les formulaires
+  ],
 }
 export default config

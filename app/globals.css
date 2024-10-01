@@ -3,8 +3,48 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 96 65% 100%;
+  --foreground: 96 67% 5%;
+  --muted: #ccc;
+  --muted-foreground: 216 4% 40%;
+  --popover: 96 65% 100%;
+  --popover-foreground: 96 67% 5%;
+  --card: 96 65% 100%;
+  --card-foreground: 96 67% 5%;
+  --border: 96 13% 91%;
+  --input: 96 13% 91%;
+  --primary: 96 13% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 216 13% 36%;
+  --secondary-foreground: 216 13% 96%;
+  --accent: 336 13% 36%;
+  --accent-foreground: 336 13% 96%;
+  --destructive: 18 93% 29%;
+  --destructive-foreground: 18 93% 89%;
+  --ring: 96 13% 36%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 96 34% 4%;
+  --foreground: 96 13% 97%;
+  --muted: 216 38% 11%;
+  --muted-foreground: 216 4% 60%;
+  --popover: 96 34% 4%;
+  --popover-foreground: 96 13% 97%;
+  --card: 96 34% 4%;
+  --card-foreground: 96 13% 97%;
+  --border: 96 13% 15%;
+  --input: 96 13% 15%;
+  --primary: 96 13% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 216 13% 36%;
+  --secondary-foreground: 216 13% 96%;
+  --accent: 336 13% 36%;
+  --accent-foreground: 336 13% 96%;
+  --destructive: 18 93% 55%;
+  --destructive-foreground: 0 0% 0%;
+  --ring: 96 13% 36%;
 }
 
 @media (prefers-color-scheme: dark) {

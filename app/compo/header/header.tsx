@@ -8,7 +8,7 @@ import { UserNavigation } from '@/app/menu/UserNavigation';
 const Header = () => {
 	
   return (
-    <div className='pl-5 py-2 border-b border-black-100'>
+    <div className='pl-5 py-2 border-b'>
       <div className='flex items-center'>
         <div>
           <Link href='/'>
