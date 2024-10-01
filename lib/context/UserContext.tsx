@@ -7,7 +7,7 @@ interface User {
   firstname: string;
   username: string;
   email: string;
-  adress: string;
+  address: string;
   zipcode: number;
   city: string;
   country: string;
@@ -52,7 +52,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           firstname: profile[0].firstname,
           username: profile[0].username,
           email: profile[0].email,
-          adress: profile[0].adress,
+          address: profile[0].address,
           zipcode: profile[0].zipcode,
           city: profile[0].city,
           country: profile[0].country,

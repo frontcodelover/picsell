@@ -14,7 +14,6 @@ const IsSeller = () => {
           <div className='flex items-center space-x-2'>
             <Switch
               id='is_seller'
-              checked={user?.is_seller || false}
               className={`relative inline-flex items-center h-6 w-11 rounded-full ${user?.is_seller ? 'bg-blue-600' : 'bg-gray-200'} transition-colors duration-200 ease-in-out`}
             >
               <span className={`inline-block h-4 w-4 transform bg-white rounded-full transition-transform duration-200 ease-in-out ${user?.is_seller ? 'translate-x-6' : 'translate-x-1'}`} />
