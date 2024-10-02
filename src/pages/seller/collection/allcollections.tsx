@@ -13,7 +13,14 @@ const Collections = () => {
   const user = useUser();
   const [collectionName, setCollectionName] = useState('');
   const [collectionDescription, setCollectionDescription] = useState('');
-  const [allCollections, setAllCollections] = useState([]); // State pour gérer les collections
+  interface Collection {
+    id: string;
+    title: string;
+    description: string;
+    user_id: string;
+  }
+  
+  const [allCollections, setAllCollections] = useState<Collection[]>([]); // State pour gérer les collections
   const { t } = useUserAndTranslation();
 
   if (!user) {
@@ -53,12 +60,12 @@ const Collections = () => {
   };
 
   // Fonction pour supprimer une collection et mettre à jour la liste
-  const handleDeleteCollection = (collectionId) => {
+  const handleDeleteCollection = (collectionId: string | number) => {
     setAllCollections(allCollections.filter(collection => collection.id !== collectionId));
   };
 
   // Fonction pour mettre à jour une collection
-  const handleUpdateCollection = (collectionId, updatedTitle, updatedDescription) => {
+  const handleUpdateCollection = (collectionId: string | number, updatedTitle: string, updatedDescription: string) => {
     setAllCollections(
       allCollections.map((collection) =>
         collection.id === collectionId

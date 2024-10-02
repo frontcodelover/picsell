@@ -7,7 +7,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 import { LuPencil } from 'react-icons/lu';
 
-const EditCollection = ({ collectionId, collectionTitle, collectionDescription, onUpdate }) => {
+interface EditCollectionProps {
+  collectionId: string;
+  collectionTitle: string;
+  collectionDescription: string;
+  onUpdate: (id: string, title: string, description: string) => void;
+}
+
+const EditCollection: React.FC<EditCollectionProps> = ({ collectionId, collectionTitle, collectionDescription, onUpdate }) => {
   const { t } = useUserAndTranslation();
   const [title, setTitle] = useState(collectionTitle);
   const [description, setDescription] = useState(collectionDescription);

@@ -14,6 +14,7 @@ interface Collection {
 interface DisplayCollectionsForUserProps {
   allCollections: Collection[];
   onDelete: (id: string) => void;
+  onUpdate: (id: string, title: string, description: string) => void;
 }
 
 const DisplayCollectionsForUser: React.FC<DisplayCollectionsForUserProps> = ({ allCollections, onDelete, onUpdate }) => {
