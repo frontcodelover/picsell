@@ -90,8 +90,8 @@ const Profile = () => {
                   <Input id='instagram' placeholder='Instagram' value={instagram} onChange={(e) => setInstagram(e.target.value)} />
                 </div>
               </div>
-              <CardFooter className='border-t px-6 py-4'>
-                <Button type='submit'>Save</Button> {/* Le bouton déclenche la soumission du formulaire */}
+              <CardFooter className='border-t py-4'>
+                <Button type='submit'>{t('save')}</Button> {/* Le bouton déclenche la soumission du formulaire */}
               </CardFooter>
             </form>
           </CardContent>

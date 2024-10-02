@@ -11,10 +11,10 @@
   "baseline": "Soutenir les photographes, inspirer les collectionneurs",
   "baseline two": "Une plateforme dédiée où les photographes vendent leur art et les collectionneurs trouvent des pièces uniques, tout en soutenant l'artiste derrière l'objectif.",
   "hometext one": "Dans un monde où l'image est omniprésente, il est essentiel de se rappeler que derrière chaque photo, il y a un artiste. Soutenir les photographes, en particulier les amateurs ou les artistes émergents, est plus que jamais crucial. Ils capturent des moments uniques, des paysages fascinants, des émotions brutes, et souvent, leur travail mérite une reconnaissance et une visibilité qu'ils n'ont pas toujours les moyens d'obtenir.",
-	"brand": "Picsell",
-	"sign out": "Déconnexion",
-	"profile": "Profil",
-	"userinfo": {
+  "brand": "Picsell",
+  "sign out": "Déconnexion",
+  "profile": "Profil",
+  "userinfo": {
     "firstname": "Prénom",
     "lastname": "Nom",
     "username": "Pseudo",
@@ -22,7 +22,20 @@
     "city": "Ville",
     "postalcode": "Code postal",
     "instagram": "Instagram",
-		"country": "Pays",
-    "save": "Enregistrer"
-}
+    "country": "Pays",
+    "security": "Sécurité",
+		"newpassword":	"Nouveau mot de passe",
+    "resetpassword": "Cet onglet vous permet de réinitialiser votre mot de passe.",
+    "updatepassword": "Mettre à jour le mot de passe"
+  },
+	"collections": {
+		"create" : "Créer une collection",
+		"createdescription" : "Créez une collection pour regrouper les photos de la série.",
+		"edit" : "Modifier la collection",
+		"delete" : "Supprimer la collection",
+		"collectionname" : "Nom de la collection",
+		"collectiondescription" : "Description de la collection",
+		"statut" : "En tant que photographe, il est impératif que vous soyez déclaré et disposiez d'un statut professionnel si vous envisagez de vendre vos collections. Que vous choisissiez le régime d'auto-entrepreneur, une société ou tout autre statut adapté, cela vous permettra de respecter les obligations légales et fiscales liées à la vente de vos créations. La vente de vos œuvres sans statut peut entraîner des sanctions et vous priver de certains avantages professionnels."
+	},
+  "save": "Enregistrer"
 }
