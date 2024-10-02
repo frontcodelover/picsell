@@ -30,6 +30,9 @@ const Menu = () => {
       </Link>
       <Link href='/profile/favorite' className={`${isActive('/profile/favorite') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
         Favoris
+			</Link>
+			<Link href='/profile/questions' className={`${isActive('/profile/questions') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+        Questions fréquentes
       </Link>
     </nav>
   );

@@ -21,6 +21,7 @@ const Profile = () => {
   const [city, setCity] = useState(user?.city || '');
   const [country, setCountry] = useState(user?.country || '');
   const [instagram, setInstagram] = useState(user?.instagram || '');
+  const [siret, setSiret] = useState(user?.siret || '');
 
   // Fonction pour mettre à jour les informations dans Supabase
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +36,8 @@ const Profile = () => {
         zipcode,
         city,
         country,
-        instagram,
+				instagram,
+				siret,
       })
       .eq('email', user?.email); // Utiliser 'user_id' si la colonne est UUID dans Supabase
 
@@ -84,11 +86,19 @@ const Profile = () => {
                 <div>
                   <Label htmlFor='country'>{t('userinfo.country')}</Label>
                   <Input id='country' placeholder='Pays' value={country} onChange={(e) => setCountry(e.target.value)} />
-                </div>
-                <div>
+								</div>
+								{user?.is_seller && (
+									<>
+								<div>
                   <Label htmlFor='instagram'>Instagram</Label>
                   <Input id='instagram' placeholder='Instagram' value={instagram} onChange={(e) => setInstagram(e.target.value)} />
                 </div>
+                <div>
+                  <Label htmlFor='siret'>Numéro de siret (optionnel)</Label>
+                  <Input id='siret' placeholder='siret' value={siret} onChange={(e) => setSiret(e.target.value)} />
+                </div>
+									</>
+								)}
               </div>
               <CardFooter className='border-t py-4'>
                 <Button type='submit'>{t('save')}</Button> {/* Le bouton déclenche la soumission du formulaire */}

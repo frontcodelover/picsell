@@ -27,14 +27,22 @@
     "resetpassword": "This tab allows you to reset your password.",
     "updatepassword": "Update Password"
   },
-	"collections": {
-		"create" : "Create a collection",
-		"edit" : "Edit collection",
-		"createdescription" : "Create a collection to group the photos of the series.",
-		"delete" : "Delete collection",
-		"collectionname" : "Collection name",
-		"collectiondescription" : "Collection description",
-		"statut" : "As a photographer, it is imperative that you are declared and have a professional status if you plan to sell your collections. Whether you choose the self-employed regime, a company or any other suitable status, this will allow you to comply with the legal and tax obligations related to the sale of your creations. Selling your works without status can result in sanctions and deprive you of certain professional benefits."
-	},
+  "collections": {
+    "create": "Create a collection",
+    "edit": "Edit collection",
+    "createdescription": "Create a collection to group the photos of the series.",
+    "delete": "Delete collection",
+    "collectionname": "Collection name",
+    "collectiondescription": "Collection description",
+    "statut": "As a photographer, it is imperative that you are declared and have a professional status if you plan to sell your collections. Whether you choose the self-employed regime, a company or any other suitable status, this will allow you to comply with the legal and tax obligations related to the sale of your creations. Selling your works without status can result in sanctions and deprive you of certain professional benefits.",
+		"mycollection": "My series for sale",
+    "listmycollections": "List of all my series",
+    "nocollection": "You don't have any series for sale yet.",
+		"indicatecollection": "Add a name for the collection",
+		"indicatecollectiondescription": "Add the description of the collection",
+		"deletecollectionconfirmation": "Permanently delete the collection, be careful this action is irreversible.",
+		"cancel": "Cancel",
+		"deletecollection": "Permanently delete"
+  },
   "save": "Save"
 }

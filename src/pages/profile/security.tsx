@@ -41,11 +41,13 @@ const Security = () => {
             <CardDescription>{t('userinfo.resetpassword')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={updatePassword}>
+						<form onSubmit={updatePassword}>
+						<div className='space-y-4'>
               <Input type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('userinfo.newpassword')} />
               <CardFooter className='border-t py-4'>
                 <Button type='submit'>{t('userinfo.updatepassword')}</Button>
-              </CardFooter>
+								</CardFooter>
+								</div>
             </form>
           </CardContent>
         </Card>

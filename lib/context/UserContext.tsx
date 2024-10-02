@@ -15,6 +15,7 @@ interface User {
 	is_seller: boolean;
 	is_buyer: boolean;
 	is_admin: boolean;
+	siret: string;
 }
 
 const UserContext = createContext<User | null>(null);
@@ -60,7 +61,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 					is_seller: profile[0].is_seller,
 					is_buyer: profile[0].is_buyer,
 					is_admin: profile[0].is_admin,
-        });
+					siret: profile[0].siret,
+				});
       } else {
         console.warn('No profile found for this user in context.');
       }

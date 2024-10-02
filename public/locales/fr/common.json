@@ -24,18 +24,26 @@
     "instagram": "Instagram",
     "country": "Pays",
     "security": "Sécurité",
-		"newpassword":	"Nouveau mot de passe",
+    "newpassword": "Nouveau mot de passe",
     "resetpassword": "Cet onglet vous permet de réinitialiser votre mot de passe.",
     "updatepassword": "Mettre à jour le mot de passe"
   },
-	"collections": {
-		"create" : "Créer une collection",
-		"createdescription" : "Créez une collection pour regrouper les photos de la série.",
-		"edit" : "Modifier la collection",
-		"delete" : "Supprimer la collection",
-		"collectionname" : "Nom de la collection",
-		"collectiondescription" : "Description de la collection",
-		"statut" : "En tant que photographe, il est impératif que vous soyez déclaré et disposiez d'un statut professionnel si vous envisagez de vendre vos collections. Que vous choisissiez le régime d'auto-entrepreneur, une société ou tout autre statut adapté, cela vous permettra de respecter les obligations légales et fiscales liées à la vente de vos créations. La vente de vos œuvres sans statut peut entraîner des sanctions et vous priver de certains avantages professionnels."
-	},
+  "collections": {
+    "create": "Ajouter une nouvelle collection",
+    "createdescription": "Regrouper les photos de la série dans une collection.",
+    "edit": "Modifier la collection",
+    "delete": "Supprimer la collection",
+    "collectionname": "Nom de la collection",
+    "collectiondescription": "Description de la collection",
+    "statut": "En tant que photographe, il est impératif que vous soyez déclaré et disposiez d'un statut professionnel si vous envisagez de vendre vos collections. Que vous choisissiez le régime d'auto-entrepreneur, une société ou tout autre statut adapté, cela vous permettra de respecter les obligations légales et fiscales liées à la vente de vos créations. La vente de vos œuvres sans statut peut entraîner des sanctions et vous priver de certains avantages professionnels.",
+    "mycollection": "Mes séries à vendre",
+    "listmycollections": "Liste de toutes mes séries",
+    "nocollection": "Vous n'avez pas encore de séries à vendre.",
+    "deletecollectionconfirmation": "Supprimer définitivement la collection, attention cette action est irréversible.",
+    "cancel": "Annuler",
+    "deletecollection": "Supprimer définitivement",
+		"indicatecollection": "Indiquez le nom de la collection",
+		"indicatecollectiondescription": "Indiquez la description de la collection"
+  },
   "save": "Enregistrer"
 }

@@ -23,6 +23,8 @@
   --destructive-foreground: 18 93% 89%;
   --ring: 96 13% 36%;
   --radius: 0.5rem;
+  --danger-hover: 0 85% 50%; /* Un rouge vif */
+  --danger: 0 90% 45%;
 }
 
 .dark {
@@ -45,6 +47,8 @@
   --destructive: 18 93% 55%;
   --destructive-foreground: 0 0% 0%;
   --ring: 96 13% 36%;
+  --danger-hover: 0 85% 50%; /* Un rouge vif */
+  --danger: 0 90% 45%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -93,6 +97,8 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --danger-hover: 0 85% 50%; /* Un rouge vif */
+    --danger: 0 90% 45%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -119,6 +125,8 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --danger-hover: 0 85% 50%; /* Un rouge vif */
+    --danger: 0 90% 45%;
   }
 }
 

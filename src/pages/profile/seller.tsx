@@ -5,7 +5,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import { supabase } from '@/lib/initSupabase';
 import Collections from '../seller/collection/allcollections';
-import { Card } from '@/components/ui/card';
+
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 
@@ -21,7 +21,7 @@ const IsSeller = () => {
       .update({
         is_seller: checked,
       })
-      .eq('email', user?.email);
+      .eq('user_id', user?.id);
 
     if (error) {
       console.error('Erreur lors de la mise à jour du profil :', error);
@@ -52,7 +52,7 @@ const IsSeller = () => {
               <span className={`inline-block h-4 w-4 transform bg-white rounded-full transition-transform duration-200 ease-in-out ${isSeller ? 'translate-x-6' : 'translate-x-1'}`} />
             </Switch>
             <Label htmlFor='is_seller' className='text-gray-900'>
-              Vendre mes créations
+              {isSeller ? "Vente de mes photos" : "Activer la vente de mes photos"}
             </Label>
           </div>
         </div>
