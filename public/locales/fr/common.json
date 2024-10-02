@@ -42,8 +42,16 @@
     "deletecollectionconfirmation": "Supprimer définitivement la collection, attention cette action est irréversible.",
     "cancel": "Annuler",
     "deletecollection": "Supprimer définitivement",
-		"indicatecollection": "Indiquez le nom de la collection",
-		"indicatecollectiondescription": "Indiquez la description de la collection"
+    "indicatecollection": "Indiquez le nom de la collection",
+    "indicatecollectiondescription": "Indiquez la description de la collection",
+    "title": "Titre de la série",
+    "description": "Description de la série",
+    "actions": "Actions",
+    "editcollection": "Modifier la collection",
+    "savechanges": "Sauvegarder les modifications",
+    "collectionupdated": "La collection a été mise à jour avec succès.",
+		"saving": "Sauvegarde...",
+		"errorupdating": "Une erreur est survenue lors de la mise à jour de la collection."
   },
   "save": "Enregistrer"
 }
