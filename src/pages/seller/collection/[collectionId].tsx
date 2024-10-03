@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import UploadForm from './uploadform';
 import { useUser } from '@/lib/context/UserContext';
 import CollectionLayout from './layout';
-import BioProfil from '@/app/compo/seller/bioprofil';
+import BioProfil from '@/app/compo/photographer/bioprofil';
 
 const CollectionPage = () => {
   interface Photo {
@@ -51,7 +51,7 @@ const CollectionPage = () => {
 
     // Vérifie si l'utilisateur connecté est bien le propriétaire de la collection
     if (data.user_id !== user?.id) {
-      console.warn('Accès non autorisé : cet utilisateur n\'est pas le propriétaire de la collection');
+      console.warn("Accès non autorisé : cet utilisateur n'est pas le propriétaire de la collection");
       router.push('/'); // Redirige vers la page d'accueil ou une autre page
       return;
     }
@@ -67,8 +67,8 @@ const CollectionPage = () => {
     if (error) {
       console.error('Erreur lors de la récupération des photos :', error);
     } else {
-			setPhotos(data);
-			console.log("data",data)
+      setPhotos(data);
+      console.log('data', data);
     }
   };
 
@@ -78,9 +78,7 @@ const CollectionPage = () => {
 
     const fileName = `${Date.now()}_${file.name}`;
 
-    const { data, error: uploadError } = await supabase.storage
-      .from('photos')
-      .upload(`public/${fileName}`, file);
+    const { data, error: uploadError } = await supabase.storage.from('photos').upload(`public/${fileName}`, file);
 
     if (uploadError) {
       console.error('Erreur lors du téléchargement de la photo :', uploadError);
@@ -105,40 +103,40 @@ const CollectionPage = () => {
     }
 
     setLoading(false);
-	};
-	
-	console.log("photos",photos)
+  };
 
-	return (
-		<>
-			<BioProfil />
-		<CollectionLayout>
-    <div>
-      <h1>{collection?.title}</h1>
-      <p>{collection?.description}</p>
-			</div>
-			<div>
-      <h2>Photos</h2>
-      {photos.length === 0 ? (
-				<p>Aucune photo dans cette collection.</p>
-      ) : (
-				<ul>
-          {photos.map((photo) => (
-						<li key={photo.id}>
-              <h3>{photo.title}</h3>
-              <p>{photo.description}</p>
-              {photo.image_url && <img src={photo.image_url} alt={photo.title} width='200' />}
-            </li>
-          ))}
-        </ul>
-      )}
+  console.log('photos', photos);
 
-      <h2>Ajouter une photo</h2>
-      <UploadForm onUpload={uploadPhoto} loading={loading} />
-    </div>
-				</CollectionLayout>
-			</>
-			);
+  return (
+    <>
+      <BioProfil />
+      <CollectionLayout>
+        <div>
+          <h1>{collection?.title}</h1>
+          <p>{collection?.description}</p>
+        </div>
+        <div>
+          <h2>Photos</h2>
+          {photos.length === 0 ? (
+            <p>Aucune photo dans cette collection.</p>
+          ) : (
+            <ul>
+              {photos.map((photo) => (
+                <li key={photo.id}>
+                  <h3>{photo.title}</h3>
+                  <p>{photo.description}</p>
+                  {photo.image_url && <img src={photo.image_url} alt={photo.title} width='200' />}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <h2>Ajouter une photo</h2>
+          <UploadForm onUpload={uploadPhoto} loading={loading} />
+        </div>
+      </CollectionLayout>
+    </>
+  );
 };
 
 export default CollectionPage;
