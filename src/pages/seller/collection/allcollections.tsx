@@ -8,9 +8,11 @@ import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 import DisplayCollectionsForUser from './displayallcollection';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@radix-ui/react-label';
+import { useRouter } from 'next/router';
 
 const Collections = () => {
-  const user = useUser();
+	const user = useUser();
+	const router = useRouter();
   const [collectionName, setCollectionName] = useState('');
   const [collectionDescription, setCollectionDescription] = useState('');
   interface Collection {
@@ -35,6 +37,10 @@ const Collections = () => {
     } else {
       setAllCollections(data);
     }
+  };
+
+	const handleClick = (collectionId) => {
+    router.push(`/seller/collection/${collectionId}`); // Rediriger vers la page d'une collection
   };
 
   useEffect(() => {
@@ -101,7 +107,7 @@ const Collections = () => {
         </CardContent>
       </Card>
       {/* Passer les collections et les fonctions de suppression et d'édition */}
-      <DisplayCollectionsForUser allCollections={allCollections} onDelete={handleDeleteCollection} onUpdate={handleUpdateCollection} />
+      <DisplayCollectionsForUser allCollections={allCollections} onDelete={handleDeleteCollection} onUpdate={handleUpdateCollection} handleClick={handleClick}/>
     </div>
   );
 };
