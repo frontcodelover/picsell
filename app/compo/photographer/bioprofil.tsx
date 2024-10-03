@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import Image from 'next/image';
+import Link from 'next/link';
+import Photos from './photos';
+import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 interface BioProfilProps {
   username: string;
-	image_url: string;
-	banner_url: string;
+  image_url: string;
+  banner_url: string;
 }
 
 const BioProfil: React.FC<BioProfilProps> = ({ username }) => {
-  // On récupère l'username depuis l'URL
-  const [bio, setBio] = useState('');
+  const { t } = useUserAndTranslation();
+  const [bio, setBio] = useState<string[]>([]);
+  const [shortBio, setShortBio] = useState('');
   const [photographerName, setPhotographerName] = useState('');
-	const [avatar, setAvatar] = useState('');
-	const [banner, setBanner] = useState('')
+  const [avatar, setAvatar] = useState('');
+  const [banner, setBanner] = useState('');
   const [loading, setLoading] = useState(true);
 
   // Fonction pour récupérer les informations du photographe
@@ -31,10 +36,34 @@ const BioProfil: React.FC<BioProfilProps> = ({ username }) => {
         return;
       }
 
-      setBio(photographerData.bio);
+      const bio = photographerData.bio;
+      const bioShort = bio.substring(0, 200) + (bio.length > 200 ? '...' : '');
+
+      // Fonction pour couper la bio juste après un point
+      const splitBioAtPeriod = (bio: string) => {
+        const middle = Math.floor(bio.length / 2.5); // Trouve le milieu du texte
+        const secondHalf = bio.slice(middle); // Deuxième moitié du texte
+
+        // Trouver le premier point dans la deuxième moitié
+        const firstPeriodIndex = secondHalf.indexOf('.');
+        if (firstPeriodIndex === -1) {
+          // Si aucun point n'est trouvé, on garde la séparation au milieu
+          return [bio.slice(0, middle), bio.slice(middle)];
+        }
+
+        // Calculer l'index de coupure final
+        const cutIndex = middle + firstPeriodIndex + 1; // Inclure le point dans la première moitié
+        return [bio.slice(0, cutIndex), bio.slice(cutIndex)];
+      };
+
+      // Diviser la bio en deux parties
+      const [firstHalf, secondHalf] = splitBioAtPeriod(bio);
+
+      setBio([firstHalf, secondHalf]);
+      setShortBio(bioShort);
       setPhotographerName(username);
-			setAvatar(photographerData.image_url);
-			setBanner(photographerData.banner_url)
+      setAvatar(photographerData.image_url);
+      setBanner(photographerData.banner_url);
       setLoading(false);
     } catch (error) {
       console.error('Erreur inconnue:', error);
@@ -52,18 +81,35 @@ const BioProfil: React.FC<BioProfilProps> = ({ username }) => {
   }
 
   return (
-		<div>
-			<img src={banner} alt="banner" className='w-full h-60 object-cover mb-6' />
-      <section className='flex items-center justify-center flex-col gap-6'>
+    <div>
+      <img src={banner} alt='banner' className='w-full h-60 object-cover mb-6' />
+      <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
         <div>
           <img src={avatar} alt={photographerName} className='object-cover max-w-40 rounded-full' />
         </div>
         <div>
-          <h1 className='text-3xl font-bold text-gray-900'>{photographerName}</h1>
+          <h1 className='text-3xl font-extrabold'>{photographerName.toUpperCase()}</h1>
         </div>
         <div>
-          <p className='text-gray-600'>{bio}</p>
+          <p className='text-lg text-center'>
+            {shortBio}
+            <span>
+							<Link href={`/photographer/${username}/#longbio`} className='font-bold'> {t("photographerspage.readmore")}</Link>
+            </span>
+          </p>
         </div>
+        <Photos />
+				<Card  id='longbio'>
+					<CardHeader className='text-xl uppercase font-extrabold'>{t('photographerspage.about')}{photographerName}</CardHeader>
+					<CardContent className="grid grid-cols-2">
+
+          {bio.map((chunk, index) => (
+						<div key={index} className="rounded-lg">
+              {chunk}
+            </div>
+          ))}
+					</CardContent>
+        </Card>
       </section>
     </div>
   );

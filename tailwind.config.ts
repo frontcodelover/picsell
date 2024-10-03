@@ -11,7 +11,10 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-  	extend: {
+		extend: {
+			fontFamily: {
+        poppins: ['poppins', 'sans-serif'], // On définit la famille Roboto
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

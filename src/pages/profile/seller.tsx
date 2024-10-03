@@ -5,7 +5,6 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import { supabase } from '@/lib/initSupabase';
 import Collections from '../seller/collection/allcollections';
-
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 
@@ -59,7 +58,7 @@ const IsSeller = () => {
         {isSeller && (
           <>
             <Alert>
-              <AlertTitle className='font-bold'>Informations</AlertTitle>
+              <AlertTitle className='font-bold pb-2'>Informations</AlertTitle>
 							<AlertDescription>{t("collections.statut") }</AlertDescription>
             </Alert>
             <div className='grid gap-6'>

@@ -52,5 +52,9 @@
 		"saving": "Saving...",
 		"errorupdating": "An error occurred while updating the collection."
   },
-  "save": "Save"
+	"photographerspage": {
+		"readmore": "Read more",
+		"availableworks": "Available works",
+		"about": "Informations about "
+	}
 }
