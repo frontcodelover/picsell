@@ -20,8 +20,6 @@ const Profile = () => {
   const [zipcode, setZipcode] = useState(user?.zipcode || '');
   const [city, setCity] = useState(user?.city || '');
   const [country, setCountry] = useState(user?.country || '');
-  const [instagram, setInstagram] = useState(user?.instagram || '');
-  const [siret, setSiret] = useState(user?.siret || '');
 
   // Fonction pour mettre à jour les informations dans Supabase
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,8 +34,6 @@ const Profile = () => {
         zipcode,
         city,
         country,
-				instagram,
-				siret,
       })
       .eq('email', user?.email); // Utiliser 'user_id' si la colonne est UUID dans Supabase
 
@@ -61,15 +57,15 @@ const Profile = () => {
               <div className='space-y-4'>
                 <div>
                   <Label htmlFor='firstname'>{t('userinfo.firstname')}</Label>
-                  <Input id='firstname' placeholder='Prénom' value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+                  <Input id='firstname' placeholder='Prénom' value={firstname} onChange={(e) => setFirstname(e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor='lastname'>{t('userinfo.lastname')}</Label>
-                  <Input id='name' placeholder='Nom' value={name} onChange={(e) => setName(e.target.value)} />
+                  <Input id='name' placeholder='Nom' value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor='username'>{t('userinfo.username')}</Label>
-                  <Input id='username' placeholder='Pseudo' value={username} onChange={(e) => setUsername(e.target.value)} />
+                  <Input id='username' placeholder='Pseudo' value={username} onChange={(e) => setUsername(e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor='address'>{t('userinfo.address')}</Label>
@@ -86,19 +82,7 @@ const Profile = () => {
                 <div>
                   <Label htmlFor='country'>{t('userinfo.country')}</Label>
                   <Input id='country' placeholder='Pays' value={country} onChange={(e) => setCountry(e.target.value)} />
-								</div>
-								{user?.is_seller && (
-									<>
-								<div>
-                  <Label htmlFor='instagram'>Instagram</Label>
-                  <Input id='instagram' placeholder='Instagram' value={instagram} onChange={(e) => setInstagram(e.target.value)} />
                 </div>
-                <div>
-                  <Label htmlFor='siret'>Numéro de siret (optionnel)</Label>
-                  <Input id='siret' placeholder='siret' value={siret} onChange={(e) => setSiret(e.target.value)} />
-                </div>
-									</>
-								)}
               </div>
               <CardFooter className='border-t py-4'>
                 <Button type='submit'>{t('save')}</Button> {/* Le bouton déclenche la soumission du formulaire */}
