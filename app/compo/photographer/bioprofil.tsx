@@ -100,11 +100,10 @@ const BioProfil: React.FC<BioProfilProps> = ({ username }) => {
         </div>
         <Photos />
 				<Card  id='longbio'>
-					<CardHeader className='text-xl uppercase font-extrabold'>{t('photographerspage.about')}{photographerName}</CardHeader>
-					<CardContent className="grid grid-cols-2">
-
+					<CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>{t('photographerspage.about')}{photographerName}</CardHeader>
+					<CardContent className="grid grid-cols-2 text-justify">
           {bio.map((chunk, index) => (
-						<div key={index} className="rounded-lg">
+						<div key={index} className="p-4">
               {chunk}
             </div>
           ))}
