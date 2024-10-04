@@ -8,6 +8,7 @@ import { useUser } from '@/lib/context/UserContext';
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase'; // Assurez-vous d'avoir l'instance de Supabase configurée
 
+
 const Profile = () => {
   const user = useUser();
   const { t } = useUserAndTranslation();

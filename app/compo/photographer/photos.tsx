@@ -11,7 +11,7 @@ interface Photo {
 }
 
 interface PhotosProps {
-  photos: Photo[]; // On reçoit maintenant les photos en props
+  photos: Photo[]; 
 }
 
 const Photos: React.FC<PhotosProps> = ({ photos }) => {
@@ -22,7 +22,7 @@ const Photos: React.FC<PhotosProps> = ({ photos }) => {
       <h2 className='text-2xl uppercase font-extrabold py-4'>{t('photographerspage.availableworks')}</h2>
       <div className='w-full m-auto'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {photos.map((photo) => (
+          {photos?.map((photo) => (
             <div key={photo.id} className='rounded-lg p-4 transition duration-300'>
               <div className='m-auto flex justify-center w-full pb-4'>
                 <div className='border-black border-8 shadow-lg'>

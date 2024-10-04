@@ -1,6 +1,5 @@
 import React from 'react';
 import BioProfil from '@/app/compo/photographer/bioprofil';
-import Photos from '@/app/compo/photographer/photos';
 import { supabase } from '@/lib/initSupabase';
 
 interface DisplayPageProps {
@@ -8,6 +7,7 @@ interface DisplayPageProps {
   bio: string;
   image_url: string;
   banner_url: string;
+  user_id: string; // Ajouter user_id dans les props
   photos: {
     id: number;
     title: string;
@@ -18,13 +18,10 @@ interface DisplayPageProps {
   }[];
 }
 
-const DisplayPage: React.FC<DisplayPageProps> = ({ username, bio, image_url, banner_url, photos }) => {
+const DisplayPage: React.FC<DisplayPageProps> = ({ username, bio, image_url, banner_url, user_id, photos }) => {
   return (
     <div>
-      {/* Composant pour afficher le profil du photographe */}
-			<BioProfil username={username} bio={bio} image_url={image_url} banner_url={banner_url} photos={photos} />
-
-      {/* Composant pour afficher les photos du photographe */}
+      <BioProfil username={username} bio={bio} image_url={image_url} banner_url={banner_url} user_id={user_id} photos={photos} />
     </div>
   );
 };
@@ -43,7 +40,7 @@ export async function getServerSideProps(context: any) {
     return { notFound: true };
   }
 
-  const user_id = photographerData.user_id; // On récupère le user_id pour les photos
+  const user_id = photographerData.user_id; // Récupérer le user_id pour la vérification
 
   // Étape 2 : Récupérer les photos associées à cet utilisateur
   const { data: photosData, error: photosError } = await supabase
@@ -57,11 +54,12 @@ export async function getServerSideProps(context: any) {
 
   return {
     props: {
-      username, // On passe le username pour le profil
+      username,
       bio: photographerData.bio || '',
       image_url: photographerData.image_url,
       banner_url: photographerData.banner_url,
-      photos: photosData || [], // On passe les photos récupérées
+      user_id, // Passer le user_id pour la vérification
+      photos: photosData || [],
     },
   };
 }
