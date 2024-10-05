@@ -3,6 +3,13 @@ import Photos from './photos';
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase'; // Importer Supabase pour vérifier l'authentification
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import dynamic from 'next/dynamic'; // Import dynamique de ReactQuill
+import 'react-quill/dist/quill.snow.css';
+import DOMPurify from 'dompurify'; // Import de DOMPurify pour nettoyer le HTML
+
+
+// Import de ReactQuill avec désactivation du SSR
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 interface BioProfilProps {
   username: string;
@@ -10,7 +17,7 @@ interface BioProfilProps {
   banner_url: string;
   bio: string;
   user_id: string; // On récupère aussi le user_id du photographe
-  photos: any[]; // Adjust the type of photos as needed
+  photos: any[]; // Ajuster le type des photos si nécessaire
 }
 
 const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, bio, user_id, photos }) => {
@@ -32,20 +39,25 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
   }, []);
 
   // Fonction pour enregistrer les modifications de la bio longue
-  const handleSaveBio = async () => {
-    if (!currentUser) return;
-
-    const { error } = await supabase
-      .from('photographers')
-      .update({ bio: updatedBio }) // Mettre à jour la bio longue
-      .eq('user_id', currentUser.id); // Vérifier qu'on met à jour le bon utilisateur
-
-    if (!error) {
-      setIsEditing(false); // Désactive le mode édition après la sauvegarde
-    } else {
-      console.error('Erreur lors de la mise à jour de la bio:', error);
-    }
-  };
+	const handleSaveBio = async () => {
+		if (!currentUser) return;
+	
+		// Optionnel : Sanitize le contenu HTML avant de l'envoyer à la base de données
+		const sanitizedBio = DOMPurify.sanitize(updatedBio);
+	
+		// Mise à jour de la bio dans Supabase avec le HTML stylé
+		const { error } = await supabase
+			.from('photographers')  // Nom de la table
+			.update({ bio: sanitizedBio })  // Mettre à jour la colonne avec le HTML
+			.eq('user_id', currentUser.id);  // Vérifier que l'utilisateur correspond
+	
+		if (!error) {
+			setIsEditing(false);  // Désactiver le mode édition
+		} else {
+			console.error('Erreur lors de la mise à jour de la bio:', error);
+		}
+	};
+	
 
   // Fonction pour séparer la bio longue en deux parties (avant et après un point)
   const splitBioAtPeriod = (bio: string | undefined) => {
@@ -88,8 +100,7 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
         {/* Section bio longue avec édition */}
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>
-            {t('photographerspage.about')}
-            {username}
+            {t('photographerspage.about')} {username}
           </CardHeader>
 
           {/* Vérification si l'utilisateur est le propriétaire du profil */}
@@ -98,7 +109,7 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
               {/* Formulaire d'édition de la bio longue */}
               {isEditing ? (
                 <div className='flex flex-col gap-4 w-full'>
-                  <textarea value={updatedBio} onChange={(e) => setUpdatedBio(e.target.value)} className='h-96 w-11/12 mx-auto my-4' />
+                  <ReactQuill theme="snow" value={updatedBio} onChange={setUpdatedBio} className='h-96 w-11/12 mx-auto my-4' />
                   <div className='flex gap-4 py-4 px-8'>
                     <button onClick={handleSaveBio} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700'>
                       Sauvegarder
