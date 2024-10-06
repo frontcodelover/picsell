@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import BioProfil from '@/app/compo/photographer/bioprofil';
 import { supabase } from '@/lib/initSupabase';
 
 interface DisplayPageProps {
   username: string;
-  bio: string;
+  bio_html: string;
   image_url: string;
   banner_url: string;
-  user_id: string; // Ajouter user_id dans les props
+	user_id: string; // Ajouter user_id dans les props
+	onBioUpdate: (newBio: string) => void; // Ajouter une fonction pour mettre à jour la bio
   photos: {
     id: number;
     title: string;
@@ -18,10 +19,17 @@ interface DisplayPageProps {
   }[];
 }
 
-const DisplayPage: React.FC<DisplayPageProps> = ({ username, bio, image_url, banner_url, user_id, photos }) => {
-  return (
+const DisplayPage: React.FC<DisplayPageProps> = ({ username, bio_html, image_url, banner_url, user_id, photos }) => {
+	const [currentBio, setCurrentBio] = useState(bio_html);
+
+  // Fonction pour gérer la mise à jour de la bio après modification dans BioProfil
+  const handleBioUpdate = (newBio: string) => {
+    setCurrentBio(newBio);  // Met à jour l'état local
+  };
+	
+	return (
     <div>
-      <BioProfil username={username} bio={bio} image_url={image_url} banner_url={banner_url} user_id={user_id} photos={photos} />
+      <BioProfil username={username} bio_html={currentBio} image_url={image_url} banner_url={banner_url} user_id={user_id} photos={photos}  onBioUpdate={handleBioUpdate} />
     </div>
   );
 };
@@ -32,7 +40,7 @@ export async function getServerSideProps(context: any) {
   // Étape 1 : Récupérer les informations du photographe
   const { data: photographerData, error: photographerError } = await supabase
     .from('photographers')
-    .select('bio, image_url, banner_url, user_id')
+    .select('bio_html, image_url, banner_url, user_id')
     .eq('username', username)
     .single();
 
@@ -55,7 +63,7 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       username,
-      bio: photographerData.bio || '',
+      bio_html: photographerData.bio_html || '',
       image_url: photographerData.image_url,
       banner_url: photographerData.banner_url,
       user_id, // Passer le user_id pour la vérification

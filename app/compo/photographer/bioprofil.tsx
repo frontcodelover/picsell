@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic'; // Import dynamique de ReactQuill
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify'; // Import de DOMPurify pour nettoyer le HTML
 
-
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -15,16 +14,30 @@ interface BioProfilProps {
   username: string;
   image_url: string;
   banner_url: string;
-  bio: string;
+  bio_html: string;
   user_id: string; // On récupère aussi le user_id du photographe
   photos: any[]; // Ajuster le type des photos si nécessaire
+  onBioUpdate: (newBio: string) => void;
 }
 
-const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, bio, user_id, photos }) => {
+const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, bio_html, user_id, photos, onBioUpdate }) => {
   const { t } = useUserAndTranslation();
   const [currentUser, setCurrentUser] = useState<any>(null); // Stocker l'utilisateur connecté
   const [isEditing, setIsEditing] = useState<boolean>(false); // État pour activer l'édition de la bio longue
-  const [updatedBio, setUpdatedBio] = useState<string>(bio); // État pour la bio longue modifiée
+  const [updatedBio, setUpdatedBio] = useState<string>(bio_html); // État pour la bio longue modifiée
+
+  const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image'];
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ['link', 'image'],
+      [{ align: [] }],
+      ['clean'], // pour supprimer le formatage
+    ],
+  };
 
   // Vérifier l'utilisateur connecté avec Supabase
   useEffect(() => {
@@ -39,38 +52,49 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
   }, []);
 
   // Fonction pour enregistrer les modifications de la bio longue
-	const handleSaveBio = async () => {
-		if (!currentUser) return;
-	
-		// Optionnel : Sanitize le contenu HTML avant de l'envoyer à la base de données
-		const sanitizedBio = DOMPurify.sanitize(updatedBio);
-	
-		// Mise à jour de la bio dans Supabase avec le HTML stylé
-		const { error } = await supabase
-			.from('photographers')  // Nom de la table
-			.update({ bio: sanitizedBio })  // Mettre à jour la colonne avec le HTML
-			.eq('user_id', currentUser.id);  // Vérifier que l'utilisateur correspond
-	
-		if (!error) {
-			setIsEditing(false);  // Désactiver le mode édition
-		} else {
-			console.error('Erreur lors de la mise à jour de la bio:', error);
-		}
-	};
-	
+  const handleSaveBio = async () => {
+    if (!currentUser) return;
 
-  // Fonction pour séparer la bio longue en deux parties (avant et après un point)
-  const splitBioAtPeriod = (bio: string | undefined) => {
-    if (!bio) return ['', ''];
-    const middle = Math.floor(bio.length / 2.5);
-    const secondHalf = bio.slice(middle);
-    const firstPeriodIndex = secondHalf.indexOf('.');
-    if (firstPeriodIndex === -1) return [bio.slice(0, middle), bio.slice(middle)];
-    const cutIndex = middle + firstPeriodIndex + 1;
-    return [bio.slice(0, cutIndex), bio.slice(cutIndex)];
+    // Optionnel : Sanitize le contenu HTML avant de l'envoyer à la base de données
+    const sanitizedBio = DOMPurify.sanitize(updatedBio, {
+      ALLOWED_TAGS: ['b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'p', 'ul', 'li'],
+      ALLOWED_ATTR: ['href'],
+    });
+
+    const encodedBio = encodeURIComponent(updatedBio);
+
+    // Mise à jour de la bio dans Supabase avec le HTML stylé
+    const { data, error } = await supabase
+      .from('photographers')
+      .update({ bio_html: sanitizedBio }) // Mettre à jour la bio
+      .eq('user_id', currentUser.id)
+      .select(); // Sélectionne les données mises à jour
+
+    if (error) {
+      console.error('Erreur lors de la mise à jour de la bio:', error);
+    } else {
+      console.log('Mise à jour réussie:', data); // Affiche les données mises à jour
+      onBioUpdate(sanitizedBio);
+      setIsEditing(false); // Désactiver le mode édition
+    }
   };
 
-  const [firstHalf, secondHalf] = splitBioAtPeriod(bio);
+  // Fonction pour séparer la bio longue en deux parties (avant et après un point)
+  const splitBioAtPeriod = (bio_html: string | undefined) => {
+    if (!bio_html) return ['', ''];
+    const middle = Math.floor(bio_html.length / 2.5);
+    const secondHalf = bio_html.slice(middle);
+    const firstPeriodIndex = secondHalf.indexOf('.');
+    if (firstPeriodIndex === -1) return [bio_html.slice(0, middle), bio_html.slice(middle)];
+    const cutIndex = middle + firstPeriodIndex + 1;
+    return [bio_html.slice(0, cutIndex), bio_html.slice(cutIndex)];
+  };
+
+  const [firstHalf, secondHalf] = splitBioAtPeriod(bio_html);
+
+  console.log('update', updatedBio);
+
+  const bioshorted = bio_html?.substring(0, 200) + (bio_html?.length > 200 ? '...' : '');
 
   return (
     <div>
@@ -86,7 +110,8 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
         {/* Section bio courte avec bouton Lire la suite */}
         <div>
           <p className='text-lg text-center'>
-            {bio?.substring(0, 200) + (bio?.length > 200 ? '...' : '')}
+            <div dangerouslySetInnerHTML={{ __html: bioshorted }} />
+
             <span>
               <a href='#longbio' className='font-bold'>
                 {t('photographerspage.readmore')}
@@ -109,7 +134,16 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
               {/* Formulaire d'édition de la bio longue */}
               {isEditing ? (
                 <div className='flex flex-col gap-4 w-full'>
-                  <ReactQuill theme="snow" value={updatedBio} onChange={setUpdatedBio} className='h-96 w-11/12 mx-auto my-4' />
+                  <ReactQuill
+                    theme='snow'
+                    value={updatedBio}
+                    onChange={(content, delta, source, editor) => {
+                      const htmlContent = editor.getHTML();
+                      console.log('Contenu modifié:', htmlContent);
+                      setUpdatedBio(htmlContent);
+                    }}
+                    className='h-96 w-11/12 mx-auto my-4'
+                  />
                   <div className='flex gap-4 py-4 px-8'>
                     <button onClick={handleSaveBio} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700'>
                       Sauvegarder
@@ -123,7 +157,7 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
                 <CardContent className='grid grid-cols-2 text-justify'>
                   {[firstHalf, secondHalf].map((chunk, index) => (
                     <div key={index} className='p-4'>
-                      {chunk}
+                      <div dangerouslySetInnerHTML={{ __html: chunk }} />
                     </div>
                   ))}
                   <button onClick={() => setIsEditing(true)} className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700'>
@@ -137,7 +171,7 @@ const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, 
             <div>
               {[firstHalf, secondHalf].map((chunk, index) => (
                 <div key={index} className='p-4'>
-                  {chunk}
+                  <div dangerouslySetInnerHTML={{ __html: chunk }} />
                 </div>
               ))}
             </div>
