@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import UploadForm from './uploadform';
 import { useUser } from '@/lib/context/UserContext';
 import CollectionLayout from './layout';
-import BioProfil from '@/app/compo/photographer/bioprofil';
+import BioProfil from '@/components/photographer/bioprofil';
 
 const CollectionPage = () => {
   interface Photo {
@@ -109,7 +109,15 @@ const CollectionPage = () => {
 
   return (
     <>
-      <BioProfil />
+      <BioProfil 
+        username={user?.username || ''} 
+        image_url={user?.image_url || ''} 
+        banner_url={user?.banner_url || ''} 
+        bio_html={user?.bio_html || ''} 
+        user_id={user?.id || ''} 
+        photos={photos} 
+        onBioUpdate={() => {}} // Replace with actual function if needed
+      />
       <CollectionLayout>
         <div>
           <h1>{collection?.title}</h1>

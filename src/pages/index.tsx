@@ -4,9 +4,9 @@ import Image from 'next/image';
 import HomepageImg from '@/images/homepage.jpg';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import TextBox from '@/app/compo/homepage/TextBox';
-import CarousselHome from '@/app/compo/caroussel/CarousselHome';
-import CarousselProductHome from '@/app/compo/caroussel/CarousselProductHome';
+import TextBox from '@/components/homepage/TextBox';
+import CarousselHome from '@/components/caroussel/CarousselHome';
+import CarousselProductHome from '@/components/caroussel/CarousselProductHome';
 
 export default function Home() {
   const { t } = useTranslation('common');

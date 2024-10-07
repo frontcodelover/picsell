@@ -2,8 +2,8 @@ import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
-import DeleteCollection from '@/app/compo/collection/delete';
-import EditCollection from '@/app/compo/collection/edit';
+import DeleteCollection from '@/components/collection/delete';
+import EditCollection from '@/components/collection/edit';
 
 interface Collection {
   id: string;

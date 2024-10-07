@@ -2,7 +2,7 @@ import '../../app/globals.css';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import '@/lib/i18n';
-import Header from '@/app/compo/header/header';
+import Header from '@/components/header/header';
 import { UserProvider } from '@/lib/context/UserContext';
 import { Poppins } from 'next/font/google';
 
