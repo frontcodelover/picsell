@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { useRouter } from 'next/router';
 import UploadForm from './uploadform';
-import { useUser } from '@/lib/context/UserContext';
-import CollectionLayout from './layout';
+import { useUser } from '@/context/UserContext';
+import CollectionLayout from '../../../../layouts/collection/layout';
 import BioProfil from '@/components/photographer/bioprofil';
 
 const CollectionPage = () => {
@@ -109,13 +109,13 @@ const CollectionPage = () => {
 
   return (
     <>
-      <BioProfil 
-        username={user?.username || ''} 
-        image_url={user?.image_url || ''} 
-        banner_url={user?.banner_url || ''} 
-        bio_html={user?.bio_html || ''} 
-        user_id={user?.id || ''} 
-        photos={photos} 
+      <BioProfil
+        username={user?.username || ''}
+        image_url={user?.image_url || ''}
+        banner_url={user?.banner_url || ''}
+        bio_html={user?.bio_html || ''}
+        user_id={user?.id || ''}
+        photos={photos}
         onBioUpdate={() => {}} // Replace with actual function if needed
       />
       <CollectionLayout>

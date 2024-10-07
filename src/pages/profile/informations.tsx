@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import ProfileLayout from './layout';
+import ProfileLayout from '../../../layouts/profile/layout';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
-import { useUser } from '@/lib/context/UserContext';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import { useUser } from '@/context/UserContext';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase'; // Assurez-vous d'avoir l'instance de Supabase configurée
-
 
 const Profile = () => {
   const user = useUser();

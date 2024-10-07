@@ -2,11 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/images/logo.jpg';
-import { Navigation } from '@/app/menu/navigation';
-import { UserNavigation } from '@/app/menu/UserNavigation';
+import { Navigation } from '@/components/menu/navigation';
+import { UserNavigation } from '@/components/menu/userNavigation';
 
 const Header = () => {
-	
   return (
     <div className='pl-5 py-2 border-b'>
       <div className='flex items-center'>

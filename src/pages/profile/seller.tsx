@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import ProfileLayout from './layout'; // Vérifie que le bon layout est importé
-import { useUser } from '@/lib/context/UserContext';
+import ProfileLayout from '../../../layouts/profile/layout'; // Vérifie que le bon layout est importé
+import { useUser } from '@/context/UserContext';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import { supabase } from '@/lib/initSupabase';
 import Collections from '../seller/collection/allcollections';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 
 const IsSeller = () => {
-	const user = useUser();
-	const { t } = useUserAndTranslation();
+  const user = useUser();
+  const { t } = useUserAndTranslation();
   const [isSeller, setIsSeller] = useState(user?.is_seller || false);
 
   // Mettre à jour le switch avec un boolean is_seller
@@ -51,7 +51,7 @@ const IsSeller = () => {
               <span className={`inline-block h-4 w-4 transform bg-white rounded-full transition-transform duration-200 ease-in-out ${isSeller ? 'translate-x-6' : 'translate-x-1'}`} />
             </Switch>
             <Label htmlFor='is_seller' className='text-gray-900'>
-              {isSeller ? "Vente de mes photos" : "Activer la vente de mes photos"}
+              {isSeller ? 'Vente de mes photos' : 'Activer la vente de mes photos'}
             </Label>
           </div>
         </div>
@@ -59,7 +59,7 @@ const IsSeller = () => {
           <>
             <Alert>
               <AlertTitle className='font-bold pb-2'>Informations</AlertTitle>
-							<AlertDescription>{t("collections.statut") }</AlertDescription>
+              <AlertDescription>{t('collections.statut')}</AlertDescription>
             </Alert>
             <div className='grid gap-6'>
               <Collections />

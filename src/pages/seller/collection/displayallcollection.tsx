@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import DeleteCollection from '@/components/collection/delete';
 import EditCollection from '@/components/collection/edit';
 
@@ -14,11 +14,11 @@ interface Collection {
 interface DisplayCollectionsForUserProps {
   allCollections: Collection[];
   onDelete: (id: string) => void;
-	onUpdate: (id: string, title: string, description: string) => void;
-	handleClick: (id: string) => void;
+  onUpdate: (id: string, title: string, description: string) => void;
+  handleClick: (id: string) => void;
 }
 
-const DisplayCollectionsForUser: React.FC<DisplayCollectionsForUserProps> = ({ allCollections, onDelete, onUpdate,handleClick }) => {
+const DisplayCollectionsForUser: React.FC<DisplayCollectionsForUserProps> = ({ allCollections, onDelete, onUpdate, handleClick }) => {
   const { t } = useUserAndTranslation();
 
   return (
@@ -44,10 +44,8 @@ const DisplayCollectionsForUser: React.FC<DisplayCollectionsForUserProps> = ({ a
                 <TableCell className='font-medium'>{collection.title}</TableCell>
                 <TableCell>{collection.description}</TableCell>
                 <TableCell className='text-right'>
-									<div className='flex justify-end space-x-1'>
-									<button onClick={() => handleClick(collection.id)}>
-                Voir la collection
-              </button>
+                  <div className='flex justify-end space-x-1'>
+                    <button onClick={() => handleClick(collection.id)}>Voir la collection</button>
                     <DeleteCollection collectionId={collection.id} collectionTitle={collection.title} onDelete={onDelete} />
                     <EditCollection collectionId={collection.id} collectionTitle={collection.title} collectionDescription={collection.description} onUpdate={onUpdate} />
                   </div>

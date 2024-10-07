@@ -3,16 +3,16 @@ import { supabase } from '@/lib/initSupabase';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useUser } from '@/lib/context/UserContext';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import { useUser } from '@/context/UserContext';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import DisplayCollectionsForUser from './displayallcollection';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@radix-ui/react-label';
 import { useRouter } from 'next/router';
 
 const Collections = () => {
-	const user = useUser();
-	const router = useRouter();
+  const user = useUser();
+  const router = useRouter();
   const [collectionName, setCollectionName] = useState('');
   const [collectionDescription, setCollectionDescription] = useState('');
   interface Collection {
@@ -21,7 +21,7 @@ const Collections = () => {
     description: string;
     user_id: string;
   }
-  
+
   const [allCollections, setAllCollections] = useState<Collection[]>([]); // State pour gérer les collections
   const { t } = useUserAndTranslation();
 
@@ -39,7 +39,7 @@ const Collections = () => {
     }
   };
 
-	const handleClick = (collectionId) => {
+  const handleClick = (collectionId) => {
     router.push(`/seller/collection/${collectionId}`); // Rediriger vers la page d'une collection
   };
 
@@ -50,11 +50,14 @@ const Collections = () => {
   // Fonction pour créer une nouvelle collection et mettre à jour la liste locale
   const createCollection = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { data, error } = await supabase.from('collections').insert({
-      title: collectionName,
-      description: collectionDescription,
-      user_id: user.id,
-    }).select(); // Utilisation de .select() pour retourner la collection insérée
+    const { data, error } = await supabase
+      .from('collections')
+      .insert({
+        title: collectionName,
+        description: collectionDescription,
+        user_id: user.id,
+      })
+      .select(); // Utilisation de .select() pour retourner la collection insérée
 
     if (error) {
       console.error('Erreur lors de la création de la collection :', error);
@@ -67,18 +70,12 @@ const Collections = () => {
 
   // Fonction pour supprimer une collection et mettre à jour la liste
   const handleDeleteCollection = (collectionId: string | number) => {
-    setAllCollections(allCollections.filter(collection => collection.id !== collectionId));
+    setAllCollections(allCollections.filter((collection) => collection.id !== collectionId));
   };
 
   // Fonction pour mettre à jour une collection
   const handleUpdateCollection = (collectionId: string | number, updatedTitle: string, updatedDescription: string) => {
-    setAllCollections(
-      allCollections.map((collection) =>
-        collection.id === collectionId
-          ? { ...collection, title: updatedTitle, description: updatedDescription }
-          : collection
-      )
-    );
+    setAllCollections(allCollections.map((collection) => (collection.id === collectionId ? { ...collection, title: updatedTitle, description: updatedDescription } : collection)));
   };
 
   return (
@@ -107,7 +104,7 @@ const Collections = () => {
         </CardContent>
       </Card>
       {/* Passer les collections et les fonctions de suppression et d'édition */}
-      <DisplayCollectionsForUser allCollections={allCollections} onDelete={handleDeleteCollection} onUpdate={handleUpdateCollection} handleClick={handleClick}/>
+      <DisplayCollectionsForUser allCollections={allCollections} onDelete={handleDeleteCollection} onUpdate={handleUpdateCollection} handleClick={handleClick} />
     </div>
   );
 };

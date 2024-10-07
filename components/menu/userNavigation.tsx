@@ -1,14 +1,8 @@
 'use client';
 import * as React from 'react';
 import Link from 'next/link';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase';
 
 const UserNavigation = () => {
@@ -20,17 +14,14 @@ const UserNavigation = () => {
     window.location.href = '/login';
   };
 
-
   return (
     <NavigationMenu>
       <NavigationMenuList>
         {currentUserId ? (
           <>
             <NavigationMenuItem>
-              <Link href="/profile/informations" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {t('profile')}
-                </NavigationMenuLink>
+              <Link href='/profile/informations' legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>{t('profile')}</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -42,17 +33,13 @@ const UserNavigation = () => {
         ) : (
           <>
             <NavigationMenuItem>
-              <Link href="/register" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {t('sign up')}
-                </NavigationMenuLink>
+              <Link href='/register' legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>{t('sign up')}</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/login" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {t('login')}
-                </NavigationMenuLink>
+              <Link href='/login' legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>{t('login')}</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
           </>

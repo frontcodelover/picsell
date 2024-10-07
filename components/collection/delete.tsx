@@ -13,13 +13,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/lib/initSupabase';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
-
-interface DeleteCollectionProps {
-  collectionId: string;
-  collectionTitle: string;
-  onDelete: (id: string) => void;
-}
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import { DeleteCollectionProps } from '@/types/collection';
 
 const DeleteCollection: React.FC<DeleteCollectionProps> = ({ collectionId, collectionTitle, onDelete }) => {
   const { t } = useUserAndTranslation();

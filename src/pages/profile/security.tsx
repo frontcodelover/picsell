@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ProfileLayout from './layout'; // Vérifie que le bon layout est importé
-import { useUser } from '@/lib/context/UserContext';
+import ProfileLayout from '../../../layouts/profile/layout'; // Vérifie que le bon layout est importé
+import { useUser } from '@/context/UserContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase'; // Assurez-vous d'avoir l'instance de Supabase configurée
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -41,13 +41,13 @@ const Security = () => {
             <CardDescription>{t('userinfo.resetpassword')}</CardDescription>
           </CardHeader>
           <CardContent>
-						<form onSubmit={updatePassword}>
-						<div className='space-y-4'>
-              <Input type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('userinfo.newpassword')} />
-              <CardFooter className='border-t py-4'>
-                <Button type='submit'>{t('userinfo.updatepassword')}</Button>
-								</CardFooter>
-								</div>
+            <form onSubmit={updatePassword}>
+              <div className='space-y-4'>
+                <Input type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('userinfo.newpassword')} />
+                <CardFooter className='border-t py-4'>
+                  <Button type='submit'>{t('userinfo.updatepassword')}</Button>
+                </CardFooter>
+              </div>
             </form>
           </CardContent>
         </Card>

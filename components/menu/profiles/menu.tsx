@@ -5,17 +5,12 @@ import { useRouter } from 'next/router';
 const Menu = () => {
   const router = useRouter();
 
-  console.log('Router', router);
-
   const isActive = (path: string) => {
-		return router.pathname == path;
+    return router.pathname == path;
   };
-	console.log('Path', isActive('/profile/informations'));
-
-  console.log('Menu is rendered', isActive);
 
   return (
-		<nav className='grid gap-4 text-sm text-muted-foreground'>
+    <nav className='grid gap-4 text-sm text-muted-foreground'>
       <Link href='/profile/informations' className={`${isActive('/profile/informations') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
         Informations
       </Link>
@@ -30,8 +25,8 @@ const Menu = () => {
       </Link>
       <Link href='/profile/favorite' className={`${isActive('/profile/favorite') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
         Favoris
-			</Link>
-			<Link href='/profile/questions' className={`${isActive('/profile/questions') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
+      </Link>
+      <Link href='/profile/questions' className={`${isActive('/profile/questions') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
         Questions fréquentes
       </Link>
     </nav>
