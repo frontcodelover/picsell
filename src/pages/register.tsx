@@ -40,7 +40,12 @@ const Register = () => {
     const { data: profile, error: profileError } = await supabase.from('profiles').insert({
       user_id: data?.user?.id,
       email: data?.user?.email,
-    });
+		});
+		
+		// ajouter l'id de l'utilisateur dans le la table photographers dans user_id
+		const { data: photographer, error: photographerError } = await supabase.from('photographers').insert({
+			user_id: data?.user?.id,	
+		});
 
     if (profileError) {
       console.error('Error fetching profile:', profileError);
@@ -53,7 +58,7 @@ const Register = () => {
       const user = data?.user;
       console.log('Utilisateur inscrit:', user);
       if (user) {
-        router.push('/profile');
+        router.push('/profile/informations');
       }
     }
   };
@@ -63,7 +68,10 @@ const Register = () => {
   return (
     <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[calc(800px-7rem)]'>
       <div className='flex items-center justify-center py-6'>
-        <div className='mx-auto grid w-[350px] gap-6'>
+				<div className='mx-auto grid w-[350px] gap-6'>
+				<div className='grid gap-2 text-center'>
+            <h1 className='text-3xl font-bold'>{t('createaccount')}</h1>
+          </div>
           <form onSubmit={handleRegister} className='grid gap-4'>
             <div className='grid gap-2'>
               <Label htmlFor='email'>Email</Label>
@@ -79,8 +87,8 @@ const Register = () => {
             {error && <p className='text-red-500'>{error}</p>} {/* Afficher l'erreur ici */}
           </form>
           <div className='mt-4 text-center text-sm'>
-            <span>{t('already have an account?')}</span>
-            <Link href='/login' className='underline'>
+            <span>{t('alreadyaccount')}</span>
+            <Link href='/login' className='underline text-secondary hover:text-secondary-foreground px-2'>
               {t('login')}
             </Link>
           </div>

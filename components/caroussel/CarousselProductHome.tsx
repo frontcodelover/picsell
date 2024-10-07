@@ -10,7 +10,7 @@ export default function CarousselProductHome() {
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
                 <img
-                  src="/placeholder.svg"
+                  src=""
                   alt="Product Image"
                   width={600}
                   height={600}
@@ -35,7 +35,7 @@ export default function CarousselProductHome() {
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
                 <img
-                  src="/placeholder.svg"
+                  src=""
                   alt="Product Image"
                   width={600}
                   height={600}
@@ -60,7 +60,7 @@ export default function CarousselProductHome() {
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
                 <img
-                  src="/placeholder.svg"
+                  src=""
                   alt="Product Image"
                   width={600}
                   height={600}

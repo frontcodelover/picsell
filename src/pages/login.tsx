@@ -10,6 +10,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { useRouter } from 'next/router';
+import UseUserAndTranslation from '@/hooks/useUserAndTranslation';
 
 const Login = () => {
   type LoginType = {
@@ -17,19 +18,12 @@ const Login = () => {
     password: string;
   };
 
-  const { t, i18n } = useTranslation('common'); // 'common' fait référence à common.json
+  const { t, ready } = UseUserAndTranslation(); // 'common' fait référence à common.json
   const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [ready, setReady] = useState(false); // Ajout d'un état pour retarder le rendu
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setReady(true); // Indiquer que le composant est prêt à rendre côté client
-    }
-  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault(); // Empêche le comportement par défaut du formulaire
@@ -43,11 +37,11 @@ const Login = () => {
       setError(error.message); // Enregistre le message d'erreur
     } else {
       const user = data?.user; // Accédez à l'utilisateur à partir de `data`
-			localStorage.setItem('user', JSON.stringify(user));
-			localStorage.setItem('currentUserId', user.id);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('currentUserId', user.id);
       // Rediriger l'utilisateur vers la page d'accueil
       if (user) {
-        router.push('/'); // Redirige vers la page d'accueil
+        router.push('/profile/informations'); // Redirige vers la page d'accueil
       }
     }
   };
@@ -70,7 +64,7 @@ const Login = () => {
             <div className='grid gap-2'>
               <div className='flex items-center'>
                 <Label htmlFor='password'>{t('password')}</Label>
-                <Link href='/forgot-password' className='ml-auto inline-block text-sm underline'>
+                <Link href='/forgot-password' className='ml-auto inline-block text-sm underline text-secondary hover:text-secondary-foreground'>
                   {t('forgot your password?')}
                 </Link>
               </div>
@@ -80,13 +74,13 @@ const Login = () => {
               {t('login')}
             </Button>
             {error && <p className='text-red-500'>{error}</p>} {/* Afficher l'erreur ici */}
-            <Button variant='outline' className='w-full'>
+            <Button variant='secondary' className='w-full'>
               {t('login with Google')}
             </Button>
           </form>
           <div className='mt-4 text-center text-sm'>
             <span>{t('don’t have an account?')}</span>
-            <Link href='/register' className='underline'>
+            <Link href='/register' className='underline text-secondary hover:text-secondary-foreground'>
               {t('sign up')}
             </Link>
           </div>

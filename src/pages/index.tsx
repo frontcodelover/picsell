@@ -7,16 +7,11 @@ import { useEffect, useState } from 'react';
 import TextBox from '@/components/homepage/TextBox';
 import CarousselHome from '@/components/caroussel/CarousselHome';
 import CarousselProductHome from '@/components/caroussel/CarousselProductHome';
+import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const { t } = useTranslation('common');
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setReady(true);
-    }
-  }, []);
+  const { t, ready } = useUserAndTranslation();
 
   if (!ready) return null;
 

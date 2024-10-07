@@ -1,14 +1,11 @@
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { User } from '@/types/auth';
+import { UserProviderProps } from '@/types/context';
 
 const UserContext = createContext<User | null>(null);
 
 export const useUser = () => useContext(UserContext);
-
-interface UserProviderProps {
-  children: ReactNode;
-}
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
