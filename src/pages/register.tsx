@@ -36,7 +36,6 @@ const Register = () => {
     });
 
     // ajouter une methode qui mets à jour la table profiles avec l'user_id
-
     const { data: profile, error: profileError } = await supabase.from('profiles').insert({
       user_id: data?.user?.id,
       email: data?.user?.email,
