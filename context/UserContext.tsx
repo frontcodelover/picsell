@@ -22,14 +22,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         return;
       }
 
-      const { data: profile, error } = await supabase.from('profiles').select('*').eq('user_id', currentUserId);
+      const { data: profile, error } = await supabase.from('users').select('*').eq('id', currentUserId);
 
       if (error) {
         console.error('Error fetching profile:', error);
       } else if (profile && profile.length > 0) {
         console.log('User profile in context:', profile[0]); // Log les données utilisateur
         setUser({
-          id: profile[0].user_id,
+          id: profile[0].id,
           name: profile[0].name,
           firstname: profile[0].firstname,
           username: profile[0].username,
@@ -40,7 +40,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           country: profile[0].country,
           is_seller: profile[0].is_seller,
           is_buyer: profile[0].is_buyer,
-          is_admin: profile[0].is_admin,
+          bio: profile[0].bio,
+          avatar_url: profile[0].avatar_url,
+          instagram: profile[0].instagram,
+          awards: profile[0].awards,
         });
       } else {
         console.warn('No profile found for this user in context.');

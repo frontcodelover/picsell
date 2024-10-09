@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const Menu = () => {
   const router = useRouter();
-
+	console.log("RENDU");
   const isActive = (path: string) => {
     return router.pathname == path;
   };

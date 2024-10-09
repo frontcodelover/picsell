@@ -1,14 +1,17 @@
 export interface User {
   id: string;
-  name: string;
-  firstname: string;
-  username: string;
   email: string;
+  bio: string;
+  avatar_url: string;
+  is_seller: boolean;
+  is_buyer: boolean;
   address: string;
   zipcode: number;
   city: string;
   country: string;
-	is_seller: boolean;
-	is_buyer: boolean;
-	is_admin: boolean;
+  instagram: string;
+  awards: string;
+  name: string;
+  firstname: string;
+  username: string;
 }

@@ -4,30 +4,25 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import picsellLogin from '@/images/picsellerLogin.jpg';
-import { useTranslation } from 'react-i18next';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { useRouter } from 'next/router';
 import UseUserAndTranslation from '@/hooks/useUserAndTranslation';
+import useCustomToast from '@/hooks/useCustomToast';
 
 const Login = () => {
-  type LoginType = {
-    email: string;
-    password: string;
-  };
-
   const { t, ready } = UseUserAndTranslation(); // 'common' fait référence à common.json
   const router = useRouter();
+  const { showSuccessToast, showErrorToast } = useCustomToast();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); // Empêche le comportement par défaut du formulaire
-
+    e.preventDefault();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -35,6 +30,7 @@ const Login = () => {
 
     if (error) {
       setError(error.message); // Enregistre le message d'erreur
+      showErrorToast('Vérfier votre email et mot de passe', 'Erreur de connexion');
     } else {
       const user = data?.user; // Accédez à l'utilisateur à partir de `data`
       localStorage.setItem('user', JSON.stringify(user));
@@ -73,8 +69,7 @@ const Login = () => {
             <Button type='submit' className='w-full'>
               {t('login')}
             </Button>
-            {error && <p className='text-red-500'>{error}</p>} {/* Afficher l'erreur ici */}
-            <Button variant='secondary' className='w-full'>
+            <Button variant={'secondary'} className='w-full'>
               {t('login with Google')}
             </Button>
           </form>

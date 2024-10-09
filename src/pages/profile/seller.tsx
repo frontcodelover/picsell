@@ -16,16 +16,15 @@ const IsSeller = () => {
   // Mettre à jour le switch avec un boolean is_seller
   const updateIsSeller = async (checked: boolean) => {
     const { error } = await supabase
-      .from('profiles')
+      .from('users')
       .update({
         is_seller: checked,
       })
-      .eq('user_id', user?.id);
+      .eq('id', user?.id);
 
     if (error) {
       console.error('Erreur lors de la mise à jour du profil :', error);
     } else {
-      // Met à jour l'état local après la mise à jour en base
       setIsSeller(checked);
     }
   };

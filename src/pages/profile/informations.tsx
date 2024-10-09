@@ -6,12 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
 import { useUser } from '@/context/UserContext';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
-import { supabase } from '@/lib/initSupabase'; // Assurez-vous d'avoir l'instance de Supabase configurée
+import { supabase } from '@/lib/initSupabase';
+import useCustomToast from '@/hooks/useCustomToast';
 
 const Profile = () => {
   const user = useUser();
   const { t } = useUserAndTranslation();
-
+  const { showSuccessToast, showErrorToast } = useCustomToast();
   // Ajouter des états locaux pour chaque champ
   const [firstname, setFirstname] = useState(user?.firstname || '');
   const [name, setName] = useState(user?.name || '');
@@ -20,12 +21,13 @@ const Profile = () => {
   const [zipcode, setZipcode] = useState(user?.zipcode || '');
   const [city, setCity] = useState(user?.city || '');
   const [country, setCountry] = useState(user?.country || '');
+  const [message, setMessage] = useState('');
 
   // Fonction pour mettre à jour les informations dans Supabase
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
+    e.preventDefault();
     const { error } = await supabase
-      .from('profiles') // Remplacer 'profiles' par le nom de votre table Supabase si différent
+      .from('users')
       .update({
         firstname,
         name,
@@ -35,12 +37,13 @@ const Profile = () => {
         city,
         country,
       })
-      .eq('email', user?.email); // Utiliser 'user_id' si la colonne est UUID dans Supabase
+      .eq('id', user?.id); // Utiliser 'user_id' si la colonne est UUID dans Supabase
 
     if (error) {
       console.error('Erreur lors de la mise à jour du profil :', error);
+      showErrorToast('Erreur lors de la mise à jour du profil', 'Erreur lors de la mise à jour');
     } else {
-      alert('Profil mis à jour avec succès !');
+      showSuccessToast('Votre profil a été mis à jour avec succès', 'Profil mis à jour');
     }
   };
 

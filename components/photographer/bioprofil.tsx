@@ -10,11 +10,11 @@ import { BioProfilProps } from '@/types/profile';
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, bio_html, user_id, photos, onBioUpdate }) => {
+const BioProfil: React.FC<BioProfilProps> = ({ username, onBioUpdate }) => {
   const { t } = useUserAndTranslation();
   const [currentUser, setCurrentUser] = useState<any>(null); // Stocker l'utilisateur connecté
   const [isEditing, setIsEditing] = useState<boolean>(false); // État pour activer l'édition de la bio longue
-	const [updatedBio, setUpdatedBio] = useState<string>(bio_html); // État pour la bio longue modifiée
+	// const [updatedBio, setUpdatedBio] = useState<string>(bio_html); // État pour la bio longue modifiée
 	
   // Vérifier l'utilisateur connecté avec Supabase
   useEffect(() => {

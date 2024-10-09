@@ -19,6 +19,7 @@ const Register = () => {
   const [ready, setReady] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,15 +37,16 @@ const Register = () => {
     });
 
     // ajouter une methode qui mets à jour la table profiles avec l'user_id
-    const { data: profile, error: profileError } = await supabase.from('profiles').insert({
-      user_id: data?.user?.id,
-      email: data?.user?.email,
-		});
-		
-		// ajouter l'id de l'utilisateur dans le la table photographers dans user_id
-		const { data: photographer, error: photographerError } = await supabase.from('photographers').insert({
-			user_id: data?.user?.id,	
-		});
+    const { data: profile, error: profileError } = await supabase.from('users').insert({
+      id: data?.user?.id,
+			email: data?.user?.email,
+			username: username,
+    });
+
+    // ajouter l'id de l'utilisateur dans le la table photographers dans user_id
+    // const { data: photographer, error: photographerError } = await supabase.from('photographers').insert({
+    // 	user_id: data?.user?.id,
+    // });
 
     if (profileError) {
       console.error('Error fetching profile:', profileError);
@@ -67,14 +69,18 @@ const Register = () => {
   return (
     <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[calc(800px-7rem)]'>
       <div className='flex items-center justify-center py-6'>
-				<div className='mx-auto grid w-[350px] gap-6'>
-				<div className='grid gap-2 text-center'>
+        <div className='mx-auto grid w-[350px] gap-6'>
+          <div className='grid gap-2 text-center'>
             <h1 className='text-3xl font-bold'>{t('createaccount')}</h1>
           </div>
           <form onSubmit={handleRegister} className='grid gap-4'>
             <div className='grid gap-2'>
               <Label htmlFor='email'>Email</Label>
               <Input id='email' type='email' placeholder='m@example.com' required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className='grid gap-2'>
+              <Label htmlFor='displayName'>{t('displayname')}</Label>
+              <Input id='displayName' type='text' required value={username} onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='password'>{t('password')}</Label>
