@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 
 const Menu = () => {
   const router = useRouter();
-	console.log("RENDU");
   const isActive = (path: string) => {
     return router.pathname == path;
   };
 
   return (
-    <nav className='grid gap-4 text-sm text-muted-foreground'>
+    <nav className='flex flex-col gap-4 text-sm text-muted-foreground min-w-60'>
       <Link href='/profile/informations' className={`${isActive('/profile/informations') ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
         Informations
       </Link>

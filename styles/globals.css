@@ -7,54 +7,54 @@
   --primary-foreground: 0, 0%, 0%;
   --linky: hsl(209, 100%, 20%);
   --success: hsl(120 100% 25%);
-  --secondary: 209, 100%, 20%;
-  --secondary-foreground: 211, 100%, 12%;
+  --secondary: 216 13% 36%;
+  --secondary-foreground: 216 13% 96%;
   --background: 96 65% 100%;
   --foreground: 96 67% 5%;
   --muted: #ccc;
   --muted-foreground: 216 4% 40%;
-  --popover: hsl(120 100% 25%);
+  --popover: 96 65% 100%;
   --popover-foreground: 96 67% 5%;
   --card: 96 65% 100%;
   --card-foreground: 96 67% 5%;
   --border: 96 13% 91%;
   --input: 96 13% 91%;
   --white: 0 0% 100%;
-  --accent: 336 13% 36%;
+  --accent: 0 0% 0%;
   --accent-foreground: 336 13% 96%;
-  --destructive: hsl(0 88% 42%);
-  --destructive-foreground: hsl(0 72% 51%);
+  --destructive: 18 93% 29%;
+  --destructive-foreground: 18 93% 89%;
   --ring: 96 13% 36%;
   --radius: 0.5rem;
-  --danger-hover: 0 85% 50%; /* Un rouge vif */
+  --danger-hover: 0 85% 50%;
   --danger: 0 90% 45%;
 }
 
 .dark {
   --primary: 50, 100%, 52%;
   --primary-foreground: 0, 0%, 0%;
-  --linky: 209, 100%, 20%;
+  --linky: hsl(209, 100%, 20%);
   --success: hsl(120 100% 25%);
-  --secondary: 209, 100%, 20%;
-  --secondary-foreground: 211, 100%, 12%;
+  --secondary: 216 13% 36%;
+  --secondary-foreground: 216 13% 96%;
   --background: 96 65% 100%;
   --foreground: 96 67% 5%;
   --muted: #ccc;
   --muted-foreground: 216 4% 40%;
-  --popover: hsl(120 100% 25%);
+  --popover: 96 65% 100%;
   --popover-foreground: 96 67% 5%;
   --card: 96 65% 100%;
   --card-foreground: 96 67% 5%;
   --border: 96 13% 91%;
   --input: 96 13% 91%;
   --white: 0 0% 100%;
-  --accent: 336 13% 36%;
+  --accent: 0 0% 0%;
   --accent-foreground: 336 13% 96%;
-  --destructive: hsl(0 88% 42%);
-  --destructive-foreground: hsl(0 72% 51%);
+  --destructive: 18 93% 29%;
+  --destructive-foreground: 18 93% 89%;
   --ring: 96 13% 36%;
   --radius: 0.5rem;
-  --danger-hover: 0 85% 50%; /* Un rouge vif */
+  --danger-hover: 0 85% 50%;
   --danger: 0 90% 45%;
 }
 
@@ -81,55 +81,55 @@ body {
   :root {
     --primary: 50, 100%, 52%;
     --primary-foreground: 0, 0%, 0%;
-    --linky: 209, 100%, 20%;
+    --linky: hsl(209, 100%, 20%);
     --success: hsl(120 100% 25%);
-    --secondary: 209, 100%, 20%;
-    --secondary-foreground: 211, 100%, 12%;
+    --secondary: 216 13% 36%;
+    --secondary-foreground: 216 13% 96%;
     --background: 96 65% 100%;
     --foreground: 96 67% 5%;
     --muted: #ccc;
     --muted-foreground: 216 4% 40%;
-    --popover: hsl(120 100% 25%);
+    --popover: 96 65% 100%;
     --popover-foreground: 96 67% 5%;
     --card: 96 65% 100%;
     --card-foreground: 96 67% 5%;
     --border: 96 13% 91%;
     --input: 96 13% 91%;
     --white: 0 0% 100%;
-    --accent: 336 13% 36%;
+    --accent: 0 0% 0%;
     --accent-foreground: 336 13% 96%;
-    --destructive: hsl(0 88% 42%);
-    --destructive-foreground: hsl(0 72% 51%);
+    --destructive: 18 93% 29%;
+    --destructive-foreground: 18 93% 89%;
     --ring: 96 13% 36%;
     --radius: 0.5rem;
-    --danger-hover: 0 85% 50%; /* Un rouge vif */
+    --danger-hover: 0 85% 50%;
     --danger: 0 90% 45%;
   }
   .dark {
     --primary: 50, 100%, 52%;
     --primary-foreground: 0, 0%, 0%;
-    --linky: 209, 100%, 20%;
+    --linky: hsl(209, 100%, 20%);
     --success: hsl(120 100% 25%);
-    --secondary: 209, 100%, 20%;
-    --secondary-foreground: 211, 100%, 12%;
+    --secondary: 216 13% 36%;
+    --secondary-foreground: 216 13% 96%;
     --background: 96 65% 100%;
     --foreground: 96 67% 5%;
     --muted: #ccc;
     --muted-foreground: 216 4% 40%;
-    --popover: hsl(120 100% 25%);
+    --popover: 96 65% 100%;
     --popover-foreground: 96 67% 5%;
     --card: 96 65% 100%;
     --card-foreground: 96 67% 5%;
     --border: 96 13% 91%;
     --input: 96 13% 91%;
     --white: 0 0% 100%;
-    --accent: 336 13% 36%;
+    --accent: 0 0% 0%;
     --accent-foreground: 336 13% 96%;
-    --destructive: hsl(0 88% 42%);
-    --destructive-foreground: hsl(0 72% 51%);
+    --destructive: 18 93% 29%;
+    --destructive-foreground: 18 93% 89%;
     --ring: 96 13% 36%;
     --radius: 0.5rem;
-    --danger-hover: 0 85% 50%; /* Un rouge vif */
+    --danger-hover: 0 85% 50%;
     --danger: 0 90% 45%;
   }
 }

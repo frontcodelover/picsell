@@ -49,7 +49,7 @@ const Profile = () => {
 
   return (
     <ProfileLayout>
-      <div className='grid gap-6'>
+      <div className='flex-1'>
         <Card key={user?.id} x-chunk='dashboard-04-chunk-1'>
           <CardHeader>
             <CardTitle>{t('Votre profil')}</CardTitle>
