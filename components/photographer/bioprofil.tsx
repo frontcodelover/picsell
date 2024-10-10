@@ -1,21 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import Photos from './photos';
-import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import useUserAndTranslation from '@/lib/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase'; // Importer Supabase pour vérifier l'authentification
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import dynamic from 'next/dynamic'; // Import dynamique de ReactQuill
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify'; // Import de DOMPurify pour nettoyer le HTML
-import { BioProfilProps } from '@/types/profile';
+
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-const BioProfil: React.FC<BioProfilProps> = ({ username, onBioUpdate }) => {
+interface BioProfilProps {
+  username: string;
+  image_url: string;
+  banner_url: string;
+  bio_html: string;
+  user_id: string; // On récupère aussi le user_id du photographe
+  photos: any[]; // Ajuster le type des photos si nécessaire
+  onBioUpdate: (newBio: string) => void;
+}
+
+const BioProfil: React.FC<BioProfilProps> = ({ username, image_url, banner_url, bio_html, user_id, photos, onBioUpdate }) => {
   const { t } = useUserAndTranslation();
   const [currentUser, setCurrentUser] = useState<any>(null); // Stocker l'utilisateur connecté
   const [isEditing, setIsEditing] = useState<boolean>(false); // État pour activer l'édition de la bio longue
-	// const [updatedBio, setUpdatedBio] = useState<string>(bio_html); // État pour la bio longue modifiée
-	
+  const [updatedBio, setUpdatedBio] = useState<string>(bio_html); // État pour la bio longue modifiée
+
+  const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image'];
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ['link', 'image'],
+      [{ align: [] }],
+      ['clean'], // pour supprimer le formatage
+    ],
+  };
+
   // Vérifier l'utilisateur connecté avec Supabase
   useEffect(() => {
     const fetchUser = async () => {

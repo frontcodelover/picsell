@@ -59,6 +59,8 @@
 	"photographerspage": {
 		"readmore": "Read more",
 		"availableworks": "Available works",
-		"about": "Informations about "
+		"about": "Informations about ",
+		"nobio": "No biography available",
+		"edit" : "Edit my profiles"
 	}
 }

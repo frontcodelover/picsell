@@ -60,7 +60,9 @@
   "photographerspage": {
     "readmore": "Lire la suite",
     "availableworks": "Œuvres disponibles",
-    "about": "Informations à propos de "
+    "about": "Informations à propos de ",
+		"nobio"	: "Pas de biographie disponible",
+		"edit" : "Modifier mon profil"
   },
   "save": "Enregistrer"
 }
