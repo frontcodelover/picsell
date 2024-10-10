@@ -7,11 +7,16 @@ import { supabase } from '@/lib/initSupabase';
 import Collections from '../seller/collection/allcollections';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Button } from '@/components/ui/button';
 
 const IsSeller = () => {
   const user = useUser();
   const { t } = useUserAndTranslation();
   const [isSeller, setIsSeller] = useState(user?.is_seller || false);
+	const router = useRouter();
+	console.log("ROUTTER", router);
 
   // Mettre à jour le switch avec un boolean is_seller
   const updateIsSeller = async (checked: boolean) => {
@@ -39,7 +44,7 @@ const IsSeller = () => {
   return (
     <ProfileLayout>
       <main className='flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10'>
-        <div className='mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]'>
+        <div className='mx-auto grid w-full max-w-6xl items-start gap-6 '>
           <div className='flex items-center space-x-2'>
             <Switch
               id='is_seller'
@@ -54,17 +59,9 @@ const IsSeller = () => {
             </Label>
           </div>
         </div>
-        {isSeller && (
-          <>
-            <Alert>
-              <AlertTitle className='font-bold pb-2'>Informations</AlertTitle>
-              <AlertDescription>{t('collections.statut')}</AlertDescription>
-            </Alert>
-            <div className='grid gap-6'>
-              <Collections />
-            </div>
-          </>
-        )}
+				{isSeller ? (
+          <Link href={`/photographe/${user?.username}/edit`}><Button>Modifier mon profil</Button></Link>
+						) : <></>}
       </main>
     </ProfileLayout>
   );

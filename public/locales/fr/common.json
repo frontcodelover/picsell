@@ -61,8 +61,22 @@
     "readmore": "Lire la suite",
     "availableworks": "Œuvres disponibles",
     "about": "Informations à propos de ",
-		"nobio"	: "Pas de biographie disponible",
-		"edit" : "Modifier mon profil"
-  },
+    "nobio": "Pas de biographie disponible",
+    "edit": "Modifier mon profil",
+    "change": "Changer de photo de profil",
+    "upload": "Télécharger une photo",
+    "toobig": "La taille du fichier est trop grande (poids max. 10mo / taille min. 1024x1024)",
+    "titlebig": "Fichier trop volumineux",
+    "erreurfileempty": "Erreur fichier est vide",
+    "erreurfiletext": "Aucun fichier n'a été sélectionné",
+    "errordonwload": "Erreur lors du téléchargement de l'image",
+    "errordownloadtitle": "Une erreur est survenue",
+    "successupload": "L'image a été téléchargée avec succès",
+    "successuploadtitle": "Téléchargement réussi",
+    "changebanner": "Changer de bannière",
+    "uploadbanner": "Télécharger une bannière",
+		"infosedit": "Ici, vous avez la possibilité de personnaliser vos informations publiques en modifiant vos détails, en ajoutant une photo de profil, une bannière, ainsi que d’enrichir votre page avec une bio et vos photos.",
+		"infosedit2": "Éditez votre profil de photographe"
+	},
   "save": "Enregistrer"
 }

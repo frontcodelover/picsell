@@ -10,6 +10,7 @@ import DOMPurify from 'dompurify'; //
 import Photographe from '@/src/pages/photographe/[username]';
 import useCustomToast from '@/hooks/useCustomToast';
 import PhotoProfile from './photoProfile';
+import BannerProfile from './bannerProfile';
 
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -32,7 +33,7 @@ const EditBioPage = ({ user }: { user: User }) => {
 
     // Optionnel : Sanitize le contenu HTML avant de l'envoyer à la base de données
     const sanitizedBio = DOMPurify.sanitize(updatedBio || '', {
-      ALLOWED_TAGS: ['b', 'i', 'u', 'em', 'strong', 'a', 'p', 'ul', 'li'],
+      ALLOWED_TAGS: ['b', 'i', 'u', 'em', 'strong', 'a', 'p', 'ul', 'li', 'br'],
       ALLOWED_ATTR: ['href'],
     });
 
@@ -52,18 +53,21 @@ const EditBioPage = ({ user }: { user: User }) => {
     } else {
       showSuccessToast('Votre bio a été mise à jour avec succès', 'Bio mise à jour');
       setIsEditing(false); // Désactiver le mode édition
+      // Mise à jour de la bio locale après succès
+      setUpdatedBio(sanitizedBio);
+      user.bio = sanitizedBio; // Met à jour l'objet utilisateur avec la nouvelle bio
     }
   };
 
-  let bioshorted = user.bio ? user?.bio?.substring(0, 200) + (user?.bio?.length > 200 ? '...' : '') : t('photographerspage.nobio');
+  let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
+
+  console.log('bioshorted', bioshorted);
 
   return (
     <div>
-      {/* <img src={banner_url} alt='banner' className='w-full h-60 object-cover mb-6' /> */}
-			<section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
-				<PhotoProfile
-					user={user}
-				/>
+      <BannerProfile user={user} />
+      <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
+        <PhotoProfile user={user} />
         <div>
           <h1 className='text-3xl font-extrabold uppercase'>{user?.username}</h1>
         </div>

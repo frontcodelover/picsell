@@ -13,5 +13,6 @@ export interface User {
   awards: string;
   name: string;
   firstname: string;
-  username: string;
+	username: string;
+	banner_url: string;
 }

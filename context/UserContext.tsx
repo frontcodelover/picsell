@@ -43,7 +43,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           bio: profile[0].bio,
           avatar_url: profile[0].avatar_url,
           instagram: profile[0].instagram,
-          awards: profile[0].awards,
+					awards: profile[0].awards,
+					banner_url: profile[0].banner_url,
         });
       } else {
         console.warn('No profile found for this user in context.');

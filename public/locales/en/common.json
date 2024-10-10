@@ -4,10 +4,10 @@
   "login": "Login",
   "enter your email below to login to your account": "Enter your email below to login to your account",
   "password": "Password",
-	"register": "Register",
-	"displayname": "Username",
-	"alreadyaccount": "Already have an account?",
-	"createaccount": "Create an account",
+  "register": "Register",
+  "displayname": "Username",
+  "alreadyaccount": "Already have an account?",
+  "createaccount": "Create an account",
   "don’t have an account?": "Don't have an account?",
   "sign up": "Sign up",
   "forgot your password?": "Forgot your password?",
@@ -50,17 +50,30 @@
     "title": "Title of the series",
     "description": "Description of the series",
     "actions": "Actions",
-		"editcollection": "Edit collection",
-		"savechanges": "Save changes",
-		"collectionupdated": "The collection has been successfully updated.",
-		"saving": "Saving...",
-		"errorupdating": "An error occurred while updating the collection."
+    "editcollection": "Edit collection",
+    "savechanges": "Save changes",
+    "collectionupdated": "The collection has been successfully updated.",
+    "saving": "Saving...",
+    "errorupdating": "An error occurred while updating the collection."
   },
-	"photographerspage": {
-		"readmore": "Read more",
-		"availableworks": "Available works",
-		"about": "Informations about ",
-		"nobio": "No biography available",
-		"edit" : "Edit my profiles"
-	}
+  "photographerspage": {
+    "readmore": "Read more",
+    "availableworks": "Available works",
+    "about": "Informations about ",
+    "nobio": "No biography available",
+    "change": "Add a new profile picture",
+    "upload": "Upload a picture",
+    "toobig": "The file size is too large (max size: 10MB / min dimensions: 1024x1024)",
+    "titlebig": "The title is too big",
+    "erreurfileempty": "Error: The file is empty",
+    "erreurfiletext": "No file selected",
+    "errordonwload": "Error downloading the image",
+    "errordownloadtitle": "One error occured",
+    "successupload": "The image has been successfully uploaded",
+    "successuploadtitle": "Upload successful",
+    "changebanner": "Change banner",
+    "uploadbanner": "Upload a banner",
+    "infosedit": "Here, you have the ability to customize your public information by editing your Details, adding a Profile picture, a Banner, and enriching your page with a Bio and your Photos.",
+    "infosedit2": "Edit your photographer profile"
+  }
 }
