@@ -22,7 +22,7 @@ const BioProfil = ({ user }: { user: User }) => {
     <div>
       <div className='relative h-80 mb-10'>
         {bannerPic ? (
-          <Image src={bannerPic} alt={user.username} className='object-cover w-full h-80' width={1920} height={1080} />
+          <Image src={bannerPic} alt={user.username || 'default-alt-text'} className='object-cover w-full h-80' width={1920} height={1080} />
         ) : (
           <div className='flex items-center justify-center w-full h-full bg-gray-300 dark:bg-gray-700'>
             <svg className='w-10 h-10 text-gray-200 dark:text-gray-600' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 18'>
@@ -34,7 +34,7 @@ const BioProfil = ({ user }: { user: User }) => {
       <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
         <div className='relative w-40 h-40'>
           {profilePic ? (
-            <Image src={profilePic} alt={user.username} className='object-cover w-full h-full rounded-full' width={160} height={160} />
+            <Image src={profilePic} alt={user.username || 'default-alt-text'} className='object-cover w-full h-full rounded-full' width={160} height={160} />
           ) : (
             <div className='flex items-center justify-center w-full h-full rounded-full bg-gray-300 dark:bg-gray-700'>
               <svg className='w-10 h-10 text-gray-200 dark:text-gray-600' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 18'>

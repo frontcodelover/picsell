@@ -11,6 +11,7 @@ import Photographe from '@/src/pages/photographe/[username]';
 import useCustomToast from '@/hooks/useCustomToast';
 import PhotoProfile from './photoProfile';
 import BannerProfile from './bannerProfile';
+import { Button } from '../ui/button';
 
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -85,30 +86,39 @@ const EditBioPage = ({ user }: { user: User }) => {
         {/* <Photos photos={photos} /> */}
 
         <Card id='longbio' className='w-full'>
-          <CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>
+          <CardHeader className='text-xl uppercase font-extrabold mb-[-25px]'>
             {t('photographerspage.about')} {user?.username}
           </CardHeader>
           <CardContent className='w-full'>
-            <ReactQuill
-              theme='snow'
-              value={updatedBio}
-              formats={formats}
-              modules={modules}
-              onChange={(_, __, ___, editor) => {
-                const htmlContent = editor.getHTML();
-                console.log('Contenu modifié:', htmlContent);
-                setUpdatedBio(htmlContent);
-              }}
-              className='mx-auto my-4'
-            />
-            <div className='flex gap-4 '>
-              <button onClick={handleSaveBio} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700'>
-                Sauvegarder
-              </button>
-              <button onClick={() => setIsEditing(false)} className='bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700'>
-                Annuler
-              </button>
-            </div>
+            {isEditing ? (
+              <>
+                <ReactQuill
+                  theme='snow'
+                  value={updatedBio}
+                  formats={formats}
+                  modules={modules}
+                  onChange={(_, __, ___, editor) => {
+                    const htmlContent = editor.getHTML();
+                    console.log('Contenu modifié:', htmlContent);
+                    setUpdatedBio(htmlContent);
+                  }}
+                  className='mx-auto my-4'
+                />
+                <div className='flex gap-4 '>
+                  <button onClick={handleSaveBio} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700'>
+                    Sauvegarder
+                  </button>
+                  <button onClick={() => setIsEditing(false)} className='bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700'>
+                    Annuler
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div dangerouslySetInnerHTML={{ __html: user.bio || '' }} className='mx-auto my-4'></div>
+                <Button onClick={() => setIsEditing(true)}>{t('photographerspage.edit')}</Button>
+              </>
+            )}
           </CardContent>
         </Card>
       </section>
