@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation'; // Importer le hook pour l'utilisateur et les traductions
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import BioSplit from './bioSplit';
@@ -7,20 +7,76 @@ import { useUser } from '@/context/UserContext';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
+import { supabase } from '@/lib/initSupabase';
+import Photos from './photos';
 // Import de ReactQuill avec désactivation du SSR
 
 const BioProfil = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const authUser = useUser();
+  const router = useRouter();
   const [profilePic, setProfilePic] = useState(user?.avatar_url);
-  const [bannerPic, setBannerPic] = useState(user?.banner_url);
-
+	const [bannerPic, setBannerPic] = useState(user?.banner_url);
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	
   let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
+	const username = user.username;
+
+	useEffect(() => {
+    const fetchPhotosByUsername = async () => {
+      if (!username) return; // S'assure que l'username est bien chargé
+      try {
+        setLoading(true);
+
+        // Étape 1: Récupérer l'utilisateur à partir de son username
+        const { data: user, error: userError } = await supabase
+          .from('users')
+          .select('id')
+          .eq('username', username)
+          .single(); // On s'attend à un seul utilisateur
+
+        if (userError) {
+          throw new Error('Utilisateur non trouvé');
+        }
+
+        const photographerId = user.id;
+
+        // Étape 2: Récupérer les photos associées à cet utilisateur
+        const { data: photosData, error: photosError } = await supabase
+          .from('photos')
+          .select('*')
+          .eq('photographer_id', photographerId);
+
+        if (photosError) {
+          throw new Error('Erreur lors de la récupération des photos');
+        }
+
+        // Mise à jour de l'état des photos
+        setPhotos(photosData);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+		};
+
+    fetchPhotosByUsername();
+  }, [username]);
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur: {error}</p>;
+
+	console.log('PHOTOS:', photos);
+
+
   return (
-    <div>
-      <div className='relative h-80 mb-10'>
+		<div>
+	    <div className='relative h-80 mb-10'>
         {bannerPic ? (
           <Image src={bannerPic} alt={user.username || 'default-alt-text'} className='object-cover w-full h-80' width={1920} height={1080} />
         ) : (
@@ -66,7 +122,7 @@ const BioProfil = ({ user }: { user: User }) => {
           </p>
         </div>
 
-        {/* <Photos photos={photos} /> */}
+         <Photos photos={photos} /> 
 
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>

@@ -74,6 +74,7 @@
     "changebanner": "Change banner",
     "uploadbanner": "Upload a banner",
     "infosedit": "Here, you have the ability to customize your public information by editing your Details, adding a Profile picture, a Banner, and enriching your page with a Bio and your Photos.",
-    "infosedit2": "Edit your photographer profile"
+    "infosedit2": "Edit your photographer profile",
+		"addphoto" : "Add a photo"
   }
 }

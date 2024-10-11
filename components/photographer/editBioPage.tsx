@@ -12,6 +12,7 @@ import useCustomToast from '@/hooks/useCustomToast';
 import PhotoProfile from './photoProfile';
 import BannerProfile from './bannerProfile';
 import { Button } from '../ui/button';
+import AddPhotos from './addPhotos';
 
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -81,7 +82,8 @@ const EditBioPage = ({ user }: { user: User }) => {
               </a>
             </span>
           </p>
-        </div>
+				</div>
+				<AddPhotos user={user} />
 
         {/* <Photos photos={photos} /> */}
 

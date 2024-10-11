@@ -22,7 +22,7 @@ const Photos: React.FC<PhotosProps> = ({ photos }) => {
               <p className='text-gray-500'>
                 Dimensions : {photo.width} x {photo.height} cm
               </p>
-              <p className='text-gray-500 mb-4'>Prix : €{photo.prix}</p>
+              <p className='text-gray-500 mb-4'>Prix : €{photo.price}</p>
               <button className='w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300'>Ajouter au panier</button>
             </div>
           ))}

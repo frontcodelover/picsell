@@ -48,15 +48,15 @@ const PhotoProfile: React.FC<PhotoProfileProps> = ({ user }) => {
     setLoading(true);
 
     const fileName = `${Date.now()}_${file.name}`;
-    const { data, error: uploadError } = await supabase.storage.from('photos').upload(`public/${fileName}`, file);
+    const { data, error: uploadError } = await supabase.storage.from('avatars').upload(`public/${fileName}`, file);
 
     if (uploadError) {
-      showErrorToast(t('photographerspage.errordonwload'), t('photographerspage.errordonwloadtitle'));
+      showErrorToast(t('photographerspage.errordonwload'), t('photographerspage.errordownloadtitle'));
       setLoading(false);
       return;
     }
 
-    const imageUrl = `https://dqqwbvtouglhiutfehvr.supabase.co/storage/v1/object/public/photos/public/${fileName}`;
+    const imageUrl = `https://dqqwbvtouglhiutfehvr.supabase.co/storage/v1/object/public/avatars/public/${fileName}`;
 
     const { error: insertError } = await supabase.from('users').update({ avatar_url: imageUrl }).eq('id', user?.id);
 

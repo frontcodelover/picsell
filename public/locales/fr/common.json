@@ -76,7 +76,8 @@
     "changebanner": "Changer de bannière",
     "uploadbanner": "Télécharger une bannière",
 		"infosedit": "Ici, vous avez la possibilité de personnaliser vos informations publiques en modifiant vos détails, en ajoutant une photo de profil, une bannière, ainsi que d’enrichir votre page avec une bio et vos photos.",
-		"infosedit2": "Éditez votre profil de photographe"
+		"infosedit2": "Éditez votre profil de photographe",
+		"addphoto" : "Ajouter une photo"
 	},
   "save": "Enregistrer"
 }
