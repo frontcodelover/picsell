@@ -1,9 +1,8 @@
 import React from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { Photo } from '@/types/photographers';
-import { PhotosProps } from '@/types/photographers';
 
-const Photos: React.FC<PhotosProps> = ({ photos }) => {
+const Photos = ({ photos }:{photos:Photo[]}) => {
   const { t } = useUserAndTranslation();
 
   return (

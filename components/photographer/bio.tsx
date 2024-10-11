@@ -17,27 +17,23 @@ const BioProfil = ({ user }: { user: User }) => {
   const authUser = useUser();
   const router = useRouter();
   const [profilePic, setProfilePic] = useState(user?.avatar_url);
-	const [bannerPic, setBannerPic] = useState(user?.banner_url);
-  const [photos, setPhotos] = useState([]);
+  const [bannerPic, setBannerPic] = useState(user?.banner_url);
+  const [photos, setPhotos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-	
+  const [error, setError] = useState(null as string | null);
+
   let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
-	const username = user.username;
+  const username = user.username;
 
-	useEffect(() => {
+  useEffect(() => {
     const fetchPhotosByUsername = async () => {
       if (!username) return; // S'assure que l'username est bien chargé
       try {
         setLoading(true);
 
         // Étape 1: Récupérer l'utilisateur à partir de son username
-        const { data: user, error: userError } = await supabase
-          .from('users')
-          .select('id')
-          .eq('username', username)
-          .single(); // On s'attend à un seul utilisateur
+        const { data: user, error: userError } = await supabase.from('users').select('id').eq('username', username).single(); // On s'attend à un seul utilisateur
 
         if (userError) {
           throw new Error('Utilisateur non trouvé');
@@ -46,10 +42,7 @@ const BioProfil = ({ user }: { user: User }) => {
         const photographerId = user.id;
 
         // Étape 2: Récupérer les photos associées à cet utilisateur
-        const { data: photosData, error: photosError } = await supabase
-          .from('photos')
-          .select('*')
-          .eq('photographer_id', photographerId);
+        const { data: photosData, error: photosError } = await supabase.from('photos').select('*').eq('photographer_id', photographerId);
 
         if (photosError) {
           throw new Error('Erreur lors de la récupération des photos');
@@ -57,13 +50,19 @@ const BioProfil = ({ user }: { user: User }) => {
 
         // Mise à jour de l'état des photos
         setPhotos(photosData);
-      } catch (err) {
-        console.error(err);
-        setError(err.message);
+      } catch (error) {
+        console.error(error);
+
+        // Vérification si l'erreur est une instance de Error
+        if (error instanceof Error) {
+          setError(error.message); // Maintenant TypeScript sait que error a une propriété message
+        } else {
+          setError("Une erreur inconnue s'est produite"); // Cas de fallback si ce n'est pas une instance de Error
+        }
       } finally {
         setLoading(false);
       }
-		};
+    };
 
     fetchPhotosByUsername();
   }, [username]);
@@ -71,12 +70,11 @@ const BioProfil = ({ user }: { user: User }) => {
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur: {error}</p>;
 
-	console.log('PHOTOS:', photos);
-
+  console.log('PHOTOS:', photos);
 
   return (
-		<div>
-	    <div className='relative h-80 mb-10'>
+    <div>
+      <div className='relative h-80 mb-10'>
         {bannerPic ? (
           <Image src={bannerPic} alt={user.username || 'default-alt-text'} className='object-cover w-full h-80' width={1920} height={1080} />
         ) : (
@@ -122,7 +120,7 @@ const BioProfil = ({ user }: { user: User }) => {
           </p>
         </div>
 
-         <Photos photos={photos} /> 
+        <Photos photos={photos} />
 
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>

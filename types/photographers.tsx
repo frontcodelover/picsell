@@ -4,7 +4,7 @@ export interface Photo {
   image_url: string;
   width: number;
   height: number;
-  prix: number;
+  price: number;
 }
 
 export interface PhotosProps {

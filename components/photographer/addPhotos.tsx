@@ -7,13 +7,14 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '@/lib/initSupabase';
 import { Switch } from '@/components/ui/switch';
 import { randomUUID } from 'crypto';
+import { User } from '@/types/user';
 
-const AddPhotos = ({ user }) => {
+const AddPhotos = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const [uploading, setUploading] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     if (!user) return; // Vérifie que l'utilisateur est connecté
     try {
       setUploading(true);
@@ -31,8 +32,8 @@ const AddPhotos = ({ user }) => {
 
       const imageUrl = `https://dqqwbvtouglhiutfehvr.supabase.co/storage/v1/object/public/photos/public/${uuid}/${fileName}`;
 
-      const formatsArray = data.format.split(',').map((f) => f.trim()); // On sépare les formats et on supprime les espaces inutiles
-      const formatsJson = formatsArray.reduce((acc, format, index) => {
+      const formatsArray = data.format.split(',').map((f: string) => f.trim()); // On sépare les formats et on supprime les espaces inutiles
+      const formatsJson = formatsArray.reduce((acc: { [key: string]: string }, format: string, index: number) => {
         acc[`format${index + 1}`] = format;
         return acc;
       }, {});
