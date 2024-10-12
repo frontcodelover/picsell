@@ -5,6 +5,7 @@ import { useUser } from '@/context/UserContext';
 import EditBioPage from '@/components/photographer/editBioPage';
 import { useRouter } from 'next/router';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import {supabase} from '@/lib/initSupabase';
 
 const Edit = () => {
   const authUser = useUser();
@@ -12,12 +13,21 @@ const Edit = () => {
   const { t } = useUserAndTranslation();
   const [open, setOpen] = useState(false);
 
+
+
+  // useEffect pour gérer l'ouverture du modal et le stockage dans le localStorage
   useEffect(() => {
-    // Si l'utilisateur n'est pas connecté, redirection vers la page d'accueil
     if (!authUser) {
       router.push('/');
+      return;
     }
-    setOpen(true);
+
+    const modalAlreadyOpened = localStorage.getItem('modalAlreadyOpened');
+    
+    if (!modalAlreadyOpened) {
+      setOpen(true);
+      localStorage.setItem('modalAlreadyOpened', 'true');
+    }
   }, [authUser, router]);
 
   return (

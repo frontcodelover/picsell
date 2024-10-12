@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation'; // Importer le hook pour l'utilisateur et les traductions
 import { User } from '@/types/user';
 import { useUser } from '@/context/UserContext';
@@ -13,6 +13,7 @@ import PhotoProfile from './photoProfile';
 import BannerProfile from './bannerProfile';
 import { Button } from '../ui/button';
 import AddPhotos from './addPhotos';
+import Photos from './photos';
 
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -22,7 +23,28 @@ const EditBioPage = ({ user }: { user: User }) => {
   const authUser = useUser();
   const [isEditing, setIsEditing] = useState(false); // État pour activer l'édition de la bio longue
   const [updatedBio, setUpdatedBio] = useState(authUser?.bio); // État pour la bio longue modifiée
+	const [photos, setPhotos] = useState<any[]>([]);
+
+
+	useEffect(() => {
+		const fetchPhotosById = async () => {
+			if (!user) return;
+			try {
+				const { data: photos, error } = await supabase.from('photos').select('*').eq('photographer_id', user.id);
+				if (error) {
+					throw new Error('Erreur lors de la récupération des photos');
+				}
+				setPhotos(photos);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchPhotosById();
+	}
+	, [authUser]);
+
   const { showSuccessToast, showErrorToast } = useCustomToast();
+
 
   const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image'];
 
@@ -83,9 +105,8 @@ const EditBioPage = ({ user }: { user: User }) => {
             </span>
           </p>
 				</div>
-				<AddPhotos user={user} />
 
-        {/* <Photos photos={photos} /> */}
+        <Photos photos={photos} user={user} />
 
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold mb-[-25px]'>

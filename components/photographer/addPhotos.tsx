@@ -6,13 +6,37 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { supabase } from '@/lib/initSupabase';
 import { Switch } from '@/components/ui/switch';
-import { randomUUID } from 'crypto';
 import { User } from '@/types/user';
+import { formatTxt } from '@/utils/formatTxt';
+import { sliceIdUrl } from '@/utils/sliceIdUrl';
+import { z } from 'zod'; // Import Zod
+import { zodResolver } from '@hookform/resolvers/zod'; // Resolver Zod pour React Hook Form
+
+// Schéma de validation Zod avec `z.preprocess` pour convertir les strings en nombres
+const photoSchema = z.object({
+  title: z.string().min(1, 'Le titre est requis').max(100, 'Le titre est trop long'),
+  description: z.string().min(1, 'La description est requise').max(500, 'La description est trop longue'),
+  price: z.preprocess((val) => Number(val), z.number().min(0, 'Le prix doit être positif')),
+  number: z.preprocess((val) => Number(val), z.number().min(1, 'Il doit y avoir au moins une copie')),
+  paper: z.string().min(1, 'Le type de papier est requis'),
+  impression: z.string().min(1, 'La méthode d’impression est requise'),
+  shipping_delay: z.preprocess((val) => Number(val), z.number().min(1, 'Le délai de livraison doit être d\'au moins 1 jour')),
+  shipping_method: z.string().min(1, 'La méthode d\'envoi est requise'),
+  format: z.string().min(1, 'Le format est requis'),
+  weight: z.preprocess((val) => Number(val), z.number().min(0, 'Le poids doit être positif')),
+  image: z
+    .any()
+    .refine((files) => files && files.length === 1, 'Un fichier image est requis'),
+});
 
 const AddPhotos = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const [uploading, setUploading] = useState(false);
-  const { register, handleSubmit, setValue, reset } = useForm();
+
+  // Utilisation de useForm avec le resolver Zod
+  const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm({
+    resolver: zodResolver(photoSchema), // Intégration de Zod pour la validation
+  });
 
   const onSubmit = async (data: any) => {
     if (!user) return; // Vérifie que l'utilisateur est connecté
@@ -55,6 +79,7 @@ const AddPhotos = ({ user }: { user: User }) => {
           frame: data.frame, // Avec ou sans cadre (boolean)
           format: formatsJson, // Format d'impression en JSON
           weight: data.weight, // Poids de la photo
+          slug: `${formatTxt(data.title)}-${sliceIdUrl(user.id)}`,
         },
       ]);
 
@@ -74,61 +99,62 @@ const AddPhotos = ({ user }: { user: User }) => {
 
   return (
     <>
-      <h2 className='text-2xl uppercase font-extrabold py-4'>{t('photographerspage.availableworks')}</h2>
-      <div className='w-full m-auto'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-          <div className='rounded-lg p-4 transition duration-300'>
-            <div className='m-auto flex justify-center w-full pb-4'>
-              <div className='border-black border-8 shadow-lg'>
-                <div className='flex items-center justify-center w-full h-full rounded-full bg-gray-300 dark:bg-gray-700'>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className='absolute'>{t('photographerspage.addphoto')}</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>{t('photographerspage.addphoto')}</DialogTitle>
-                        <DialogDescription>Remplis les informations pour ajouter ta photo.</DialogDescription>
-                      </DialogHeader>
-                      <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='space-y-4'>
-                          <Input {...register('title')} placeholder='Titre de la photo' required />
-                          <Input {...register('description')} placeholder='Description' required />
-                          <Input {...register('price')} type='number' placeholder='Prix' required />
-                          <Input {...register('number')} type='number' placeholder='Nombre de copies' required />
-                          <Input {...register('paper')} placeholder='Type de papier' required />
-                          <Input {...register('impression')} placeholder='Méthode d’impression' required />
-                          <Input {...register('shipping_delay')} type='number' placeholder='Délai de livraison (jours)' required />
-                          <Input {...register('shipping_method')} placeholder="Méthode d'envoi" required />
-                          <label htmlFor='frame'>Cadre</label>
-                          <Switch
-                            onCheckedChange={(checked) => {
-                              setValue('frame', checked ? 'true' : 'false'); // Met à jour la valeur dans le form
-                            }}
-                          />
-                          {/* Nouveau champ pour entrer les formats */}
-                          <Input {...register('format')} placeholder='Ex: 20x30, 30x40' required />
-                          <Input {...register('weight')} type='number' placeholder='Poids (g)' required />
-                          <Input {...register('image')} type='file' accept='image/*' required />
-                        </div>
-                        <DialogFooter>
-                          <Button type='submit' disabled={uploading}>
-                            {uploading ? 'Téléchargement...' : 'Ajouter la photo'}
-                          </Button>
-                        </DialogFooter>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
-                  <svg className='w-full h-full text-gray-200 dark:text-gray-600' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 18'>
-                    <path d='M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z' />
-                  </svg>
-                </div>
-              </div>
+      <div className='transition duration-300 p-4'>
+        <div className='m-auto flex justify-center w-full pb-4'>
+          <div className='border-black border-8 shadow-lg'>
+            <div className='flex items-center justify-center w-full h-full '>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className='absolute'>{t('photographerspage.addphoto')}</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{t('photographerspage.addphoto')}</DialogTitle>
+                    <DialogDescription>Remplis les informations pour ajouter ta photo.</DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='space-y-4'>
+                      <Input {...register('title')} placeholder='Titre de la photo' required />
+                      {errors.title && <p className="text-red-500">{String(errors.title.message)}</p>}
+                      <Input {...register('description')} placeholder='Description' required />
+                      {errors.description && <p className="text-red-500">{String(errors.description.message)}</p>}
+                      <Input {...register('price')} type='number' placeholder='Prix' required />
+                      {errors.price && <p className="text-red-500">{String(errors.price.message)}</p>}
+                      <Input {...register('number')} type='number' placeholder='Nombre de copies' required />
+                      {errors.number && <p className="text-red-500">{String(errors.number.message)}</p>}
+                      <Input {...register('paper')} placeholder='Type de papier' required />
+                      {errors.paper && <p className="text-red-500">{String(errors.paper.message)}</p>}
+                      <Input {...register('impression')} placeholder='Méthode d’impression' required />
+                      {errors.impression && <p className="text-red-500">{String(errors.impression.message)}</p>}
+                      <Input {...register('shipping_delay')} type='number' placeholder='Délai de livraison (jours)' required />
+                      {errors.shipping_delay && <p className="text-red-500">{String(errors.shipping_delay.message)}</p>}
+                      <Input {...register('shipping_method')} placeholder="Méthode d'envoi" required />
+                      {errors.shipping_method && <p className="text-red-500">{String(errors.shipping_method.message)}</p>}
+                      <label htmlFor='frame'>Cadre</label>
+                      <Switch
+                        onCheckedChange={(checked) => {
+                          setValue('frame', checked ? 'true' : 'false'); // Met à jour la valeur dans le form
+                        }}
+                      />
+                      <Input {...register('format')} placeholder='Ex: 20x30, 30x40' required />
+                      {errors.format && <p className="text-red-500">{String(errors.format.message)}</p>}
+                      <Input {...register('weight')} type='number' placeholder='Poids (g)' required />
+                      {errors.weight && <p className="text-red-500">{String(errors.weight.message)}</p>}
+                      <Input {...register('image')} type='file' accept='image/*' required />
+                      {errors.image && <p className="text-red-500">{String(errors.image.message)}</p>}
+                    </div>
+                    <DialogFooter>
+                      <Button type='submit' disabled={uploading}>
+                        {uploading ? 'Téléchargement...' : 'Ajouter la photo'}
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
+              <svg className='w-full h-64 text-gray-200 dark:text-gray-600' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 18'>
+                <path d='M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z' />
+              </svg>
             </div>
-            <h3 className='text-xl font-medium text-gray-900 mb-2'>Ma super photo</h3>
-            <p className='text-gray-500'>Dimensions : 300 x 200 cm</p>
-            <p className='text-gray-500 mb-4'>Prix : €200</p>
-            <button className='w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300'>Ajouter au panier</button>
           </div>
         </div>
       </div>

@@ -1,8 +1,13 @@
 import React from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { Photo } from '@/types/photographers';
+import AddPhotos from './addPhotos';
+import Image from 'next/image';
+import Link from 'next/link';
+import { formatTxt } from '@/utils/formatTxt';
+import { sliceIdUrl } from '@/utils/sliceIdUrl';
 
-const Photos = ({ photos }:{photos:Photo[]}) => {
+const Photos = ({ photos, user }: { photos: Photo[] }) => {
   const { t } = useUserAndTranslation();
 
   return (
@@ -14,7 +19,9 @@ const Photos = ({ photos }:{photos:Photo[]}) => {
             <div key={photo.id} className='rounded-lg p-4 transition duration-300'>
               <div className='m-auto flex justify-center w-full pb-4'>
                 <div className='border-black border-8 shadow-lg'>
-                  <img src={photo.image_url} alt={photo.title} className='h-64 object-contain p-4 hover:grayscale hover:blur-sm transition duration-700' />
+                  <Link href={`/photo/${photo.slug}`}>
+                    <img src={photo.image_url} alt={photo.title} className='h-64 object-contain p-4 hover:grayscale hover:blur-sm transition duration-700' />
+                  </Link>
                 </div>
               </div>
               <h3 className='text-xl font-medium text-gray-900 mb-2'>{photo.title}</h3>
@@ -25,6 +32,7 @@ const Photos = ({ photos }:{photos:Photo[]}) => {
               <button className='w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300'>Ajouter au panier</button>
             </div>
           ))}
+          {user && <AddPhotos user={user} />}
         </div>
       </div>
     </>
