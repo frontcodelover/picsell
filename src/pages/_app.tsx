@@ -6,18 +6,23 @@ import Header from '@/components/header/header';
 import { UserProvider } from '@/context/UserContext';
 import { poppins } from '@/fonts/poppins';
 import { Toaster } from '@/components/ui/toaster';
-
+import Footer from '@/components/footer/footer';
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
-      <Header />
-      <div className={poppins.className}>
-        <div className='m-auto font-poppins'>
+      <div className='flex flex-col min-h-screen'>
+        {' '}
+        {/* Utilisation de flexbox sur toute la hauteur */}
+        <Header />
+        <main className='flex-1'>
+          {' '}
+          {/* Flex-1 pour prendre tout l'espace disponible */}
           <Component {...pageProps} />
-        </div>
-			</div>
-			<Toaster />
+        </main>
+        <Toaster />
+        <Footer />
+      </div>
     </UserProvider>
   );
 }

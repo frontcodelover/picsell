@@ -7,8 +7,8 @@ import { UserNavigation } from '@/components/menu/userNavigation';
 
 const Header = () => {
   return (
-    <div className='pl-5 py-2 border-b'>
-      <div className='flex items-center'>
+    <div className='py-2 border-b'>
+      <div className='flex items-center w-[calc(100%-5rem)] m-auto'>
         <div>
           <Link href='/'>
             <Image src={Logo} alt='Logo' className='h-10 w-auto' />
