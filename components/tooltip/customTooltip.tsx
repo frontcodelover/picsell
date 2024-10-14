@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-function Tolltip({ children, disabled, text }: { children: React.ReactNode; disabled: boolean; text: string }) {
+function CustomTooltip({ children, disabled, text }: { children: React.ReactNode; disabled: boolean; text: string }) {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -21,4 +21,4 @@ function Tolltip({ children, disabled, text }: { children: React.ReactNode; disa
   );
 }
 
-export default Tolltip;
+export default CustomTooltip;

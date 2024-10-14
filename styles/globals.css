@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   height: 100%; /* Assurer que le body et html prennent toute la hauteur */
   margin: 0;
 }
@@ -85,6 +86,9 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .texth1 {
+    @apply text-3xl text-primary-foreground font-extrabold tracking-tight ;
   }
 }
 

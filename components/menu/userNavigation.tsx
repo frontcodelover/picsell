@@ -5,14 +5,34 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase';
 import { LuShoppingCart, LuUser2 } from 'react-icons/lu';
+import { useCart } from '@/context/CartContext';
 
 const UserNavigation = () => {
   const { t, currentUserId, ready } = useUserAndTranslation(); // hook de traduction et d'utilisateur
+  const { cartItems } = useCart(); // hook du panier
+
   if (!ready) return null; // Si l'état n'est pas prêt, ne rien afficher
 
   const logout = async () => {
     await supabase.auth.signOut();
     window.location.href = '/login';
+  };
+
+  // Fonction pour styliser l'icône du panier si non vide
+  const cartStyle = () => {
+    return cartItems.length > 0 ? 'relative font-bold' : '';
+  };
+
+  // Fonction pour afficher le badge si le panier n'est pas vide
+  const renderCartBadge = () => {
+    if (cartItems.length > 0) {
+      return (
+        <span className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center'>
+          {cartItems.length}
+        </span>
+      );
+    }
+    return null;
   };
 
   return (
@@ -23,7 +43,7 @@ const UserNavigation = () => {
             <NavigationMenuItem>
               {/* Trigger pour le logo profil */}
               <NavigationMenuTrigger className='hover:bg-primary-foreground'>
-                <LuUser2 />
+                <LuUser2 className='h-5 w-5' />
               </NavigationMenuTrigger>
               {/* Contenu qui s'affiche lors du survol */}
               <NavigationMenuContent className='p-4 bg-white shadow-md rounded-md'>
@@ -42,11 +62,14 @@ const UserNavigation = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {/* Shopping Cart Icon */}
-            <NavigationMenuItem>
-              <Link href='/profile/informations' passHref>
+            {/* Shopping Cart Icon avec badge */}
+            <NavigationMenuItem className='relative'>
+              <Link href='/checkout' passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  <LuShoppingCart />
+                  <div className='relative'>
+                    <LuShoppingCart className={`${cartStyle()} h-5 w-5`} />
+                    {renderCartBadge()}
+                  </div>
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -56,7 +79,7 @@ const UserNavigation = () => {
             <NavigationMenuItem className='relative'>
               {/* Trigger pour le logo shopping cart */}
               <NavigationMenuTrigger className='hover:bg-primary-foreground'>
-                <LuUser2 />
+                <LuUser2 className='h-5 w-5' />
               </NavigationMenuTrigger>
               {/* Contenu qui s'affiche lors du survol */}
               <NavigationMenuContent className='absolute left-0 mt-1 w-48 p-2 bg-white shadow-md rounded-md'>
@@ -74,10 +97,14 @@ const UserNavigation = () => {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href='/profile/informations' passHref>
+
+            <NavigationMenuItem className='relative'>
+              <Link href='/checkout' passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  <LuShoppingCart />
+                  <div className='relative'>
+                    <LuShoppingCart className={`${cartStyle()} h-5 w-5`} />
+                    {renderCartBadge()}
+                  </div>
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
