@@ -42,8 +42,8 @@ const UserNavigation = () => {
           <>
             <NavigationMenuItem>
               {/* Trigger pour le logo profil */}
-              <NavigationMenuTrigger className='hover:bg-primary-foreground'>
-                <LuUser2 className='h-5 w-5' />
+              <NavigationMenuTrigger className='hover:bg-black hover:text-black'>
+                <LuUser2 className='h-5 w-5 hover:text-white' />
               </NavigationMenuTrigger>
               {/* Contenu qui s'affiche lors du survol */}
               <NavigationMenuContent className='p-4 bg-white shadow-md rounded-md'>

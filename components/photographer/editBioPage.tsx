@@ -72,8 +72,49 @@ const EditBioPage = ({ user }: { user: User }) => {
 
   let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
+  const colors = [
+    'background',
+    'foreground',
+    'card',
+    'card-foreground',
+    'popover',
+    'popover-foreground',
+    'primary',
+    'primary-foreground',
+    'secondary',
+    'secondary-foreground',
+    'muted',
+    'muted-foreground',
+    'accent',
+    'accent-foreground',
+    'destructive',
+    'destructive-foreground',
+    'border',
+    'input',
+    'ring',
+    'chart-1',
+    'chart-2',
+    'chart-3',
+    'chart-4',
+    'chart-5',
+  ];
+
   return (
     <div>
+      <div>
+        <p className='text-primary'>Texte en couleur primary</p>
+        <p className='text-accent'>Texte en couleur accent</p>
+        <p className='bg-success'>Fond en couleur success</p>
+        <p className='text-destructive'>Texte en couleur destructive</p>
+        <p className='text-accent bg-accent-foreground'>Texte en accent avec fond accent</p>
+      </div>
+      <div>
+        {colors.map((colorName) => (
+          <p key={colorName} className={`text-${colorName}`}>
+            {colorName}
+          </p>
+        ))}
+      </div>
       <BannerProfile user={user} />
       <div className='text-black text-8xl'>COUCOU</div>
       <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
