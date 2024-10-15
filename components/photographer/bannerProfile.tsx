@@ -71,7 +71,6 @@ const BannerProfile: React.FC<PhotoProfileProps> = ({ user }) => {
     setLoading(false);
   };
 
-	console.log('bannerPic', bannerPic);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

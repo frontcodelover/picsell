@@ -14,6 +14,8 @@ import BannerProfile from './bannerProfile';
 import { Button } from '../ui/button';
 import AddPhotos from './addPhotos';
 import Photos from './photos';
+import { useFetch } from '@/hooks/useFetch';
+import Link from 'next/link';
 
 // Import de ReactQuill avec désactivation du SSR
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -21,36 +23,24 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 const EditBioPage = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const authUser = useUser();
+
   const [isEditing, setIsEditing] = useState(false); // État pour activer l'édition de la bio longue
   const [updatedBio, setUpdatedBio] = useState(authUser?.bio); // État pour la bio longue modifiée
-	const [photos, setPhotos] = useState<any[]>([]);
-
-
-	useEffect(() => {
-		const fetchPhotosById = async () => {
-			if (!user) return;
-			try {
-				const { data: photos, error } = await supabase.from('photos').select('*').eq('photographer_id', user.id);
-				if (error) {
-					throw new Error('Erreur lors de la récupération des photos');
-				}
-				setPhotos(photos);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchPhotosById();
-	}
-	, [authUser]);
 
   const { showSuccessToast, showErrorToast } = useCustomToast();
-
 
   const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image'];
 
   const modules = {
     toolbar: [['bold', 'italic', 'underline', 'blockquote'], ['link']],
   };
+
+  const { dataGet } = useFetch({
+    compared_id: user.id,
+    dbName: 'photos',
+    dbField: 'photographer_id',
+    selected: '*',
+  });
 
   const handleSaveBio = async () => {
     if (!authUser) return;
@@ -60,9 +50,6 @@ const EditBioPage = ({ user }: { user: User }) => {
       ALLOWED_TAGS: ['b', 'i', 'u', 'em', 'strong', 'a', 'p', 'ul', 'li', 'br'],
       ALLOWED_ATTR: ['href'],
     });
-
-    const encodedBio = encodeURIComponent(updatedBio || '');
-
     // Mise à jour de la bio dans Supabase avec le HTML stylé
     const { data, error } = await supabase
       .from('users')
@@ -85,28 +72,27 @@ const EditBioPage = ({ user }: { user: User }) => {
 
   let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
-  console.log('bioshorted', bioshorted);
-
   return (
     <div>
       <BannerProfile user={user} />
+      <div className='text-black text-8xl'>COUCOU</div>
       <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
         <PhotoProfile user={user} />
         <div>
           <h1 className='text-3xl font-extrabold uppercase'>{user?.username}</h1>
         </div>
         <div>
-          <p className='text-lg text-center'>
+          <div className='text-lg text-center'>
             <div dangerouslySetInnerHTML={{ __html: bioshorted }} />
             <span>
-              <a href='#longbio' className='font-bold'>
+              <Link href='#longbio' className='font-bold'>
                 {t('photographerspage.readmore')}
-              </a>
+              </Link>
             </span>
-          </p>
-				</div>
+          </div>
+        </div>
 
-        <Photos photos={photos} user={user} />
+        <Photos photos={dataGet} user={user} />
 
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold mb-[-25px]'>
@@ -122,7 +108,6 @@ const EditBioPage = ({ user }: { user: User }) => {
                   modules={modules}
                   onChange={(_, __, ___, editor) => {
                     const htmlContent = editor.getHTML();
-                    console.log('Contenu modifié:', htmlContent);
                     setUpdatedBio(htmlContent);
                   }}
                   className='mx-auto my-4'

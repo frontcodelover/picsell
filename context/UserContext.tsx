@@ -14,8 +14,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const currentUserId = localStorage.getItem('currentUserId');
-      console.log('currentUserId in context:', currentUserId); // Log si l'ID est récupéré
-
       if (!currentUserId) {
         console.warn('No user ID found in localStorage.');
         setLoading(false);
@@ -27,7 +25,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       if (error) {
         console.error('Error fetching profile:', error);
       } else if (profile && profile.length > 0) {
-        console.log('User profile in context:', profile[0]); // Log les données utilisateur
         setUser({
           id: profile[0].id,
           name: profile[0].name,
@@ -43,8 +40,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           bio: profile[0].bio,
           avatar_url: profile[0].avatar_url,
           instagram: profile[0].instagram,
-					awards: profile[0].awards,
-					banner_url: profile[0].banner_url,
+          awards: profile[0].awards,
+          banner_url: profile[0].banner_url,
         });
       } else {
         console.warn('No profile found for this user in context.');

@@ -4,10 +4,9 @@ import { Photo } from '@/types/photographers';
 import AddPhotos from './addPhotos';
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatTxt } from '@/utils/formatTxt';
-import { sliceIdUrl } from '@/utils/sliceIdUrl';
+import { User } from '@/types/user';
 
-const Photos = ({ photos, user }: { photos: Photo[] }) => {
+const Photos = ({ photos, user }: { photos: Photo[]; user: User }) => {
   const { t } = useUserAndTranslation();
 
   return (
@@ -24,12 +23,11 @@ const Photos = ({ photos, user }: { photos: Photo[] }) => {
                   </Link>
                 </div>
               </div>
-              <h3 className='text-xl font-medium text-gray-900 mb-2'>{photo.title}</h3>
-              <p className='text-gray-500'>
-                Dimensions : {photo.width} x {photo.height} cm
-              </p>
-              <p className='text-gray-500 mb-4'>Prix : €{photo.price}</p>
-              <button className='w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300'>Ajouter au panier</button>
+              <Link href={`/photo/${photo.slug}`}>
+                <h3 className='text-md font-bold text-secondary'>{photo.title}</h3>
+              </Link>
+                <div className='text-sm pb-2 text-secondary'>{user.username}</div>
+              <p className='text-md font-semibold text-secondary'>A partir de {photo.price} €</p>
             </div>
           ))}
           {user && <AddPhotos user={user} />}

@@ -6,6 +6,7 @@ export interface Photo {
   height: number;
 	price: number;
 	user: any;
+	slug: string;
 }
 
 export interface PhotosProps {
