@@ -21,7 +21,6 @@ const Profile = () => {
   const [zipcode, setZipcode] = useState(user?.zipcode || '');
   const [city, setCity] = useState(user?.city || '');
   const [country, setCountry] = useState(user?.country || '');
-  const [message, setMessage] = useState('');
 
   // Fonction pour mettre à jour les informations dans Supabase
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {

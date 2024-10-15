@@ -1,7 +1,14 @@
 import {useEffect, useState} from 'react'
 import { supabase } from '@/lib/initSupabase';
 
-export const useFetch = ({compared_id, dbName, dbField, selected}) => {
+interface FetchParams {
+  compared_id: string | number;
+  dbName: string;
+  dbField: string;
+  selected?: string;
+}
+
+export const useFetch = ({compared_id, dbName, dbField, selected}: FetchParams) => {
 	const [dataGet, setDataGet] = useState<any[]>([]);
 	const [seleted, setSelected] = useState(selected || "*");
 

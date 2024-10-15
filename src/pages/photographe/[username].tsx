@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { GetServerSideProps } from 'next';
 import BioProfil from '@/components/photographer/bio';
 import { useRouter } from 'next/router';
+import { User } from '@/types/user';
 // composant qui affiche les informations de l'utilisateur
 
-const Photographe = ({ userInfos }: { userInfos: any }) => {
+const Photographe = ({ userInfos }: { userInfos: User }) => {
   const router = useRouter();
 
   if (!userInfos.is_seller) {

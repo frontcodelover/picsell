@@ -37,16 +37,11 @@ const Register = () => {
     });
 
     // ajouter une methode qui mets à jour la table profiles avec l'user_id
-    const { data: profile, error: profileError } = await supabase.from('users').insert({
+    const { error: profileError } = await supabase.from('users').insert({
       id: data?.user?.id,
-			email: data?.user?.email,
-			username: username,
+      email: data?.user?.email,
+      username: username,
     });
-
-    // ajouter l'id de l'utilisateur dans le la table photographers dans user_id
-    // const { data: photographer, error: photographerError } = await supabase.from('photographers').insert({
-    // 	user_id: data?.user?.id,
-    // });
 
     if (profileError) {
       console.error('Error fetching profile:', profileError);
@@ -54,10 +49,9 @@ const Register = () => {
     }
 
     if (error) {
-      setError(error.message); // Assurez-vous que vous extrayez le message d'erreur
+      setError(error.message);
     } else {
       const user = data?.user;
-      console.log('Utilisateur inscrit:', user);
       if (user) {
         router.push('/profile/informations');
       }

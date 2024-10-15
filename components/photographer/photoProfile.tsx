@@ -48,7 +48,7 @@ const PhotoProfile: React.FC<PhotoProfileProps> = ({ user }) => {
     setLoading(true);
 
     const fileName = `${Date.now()}_${file.name}`;
-    const { data, error: uploadError } = await supabase.storage.from('avatars').upload(`public/${fileName}`, file);
+    const { error: uploadError } = await supabase.storage.from('avatars').upload(`public/${fileName}`, file);
 
     if (uploadError) {
       showErrorToast(t('photographerspage.errordonwload'), t('photographerspage.errordownloadtitle'));

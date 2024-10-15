@@ -1,5 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 
 export default function CarousselProductHome() {
   return (
@@ -9,7 +10,7 @@ export default function CarousselProductHome() {
           <div className="p-1">
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
-                <img
+                <Image
                   src=""
                   alt="Product Image"
                   width={600}
@@ -34,7 +35,7 @@ export default function CarousselProductHome() {
           <div className="p-1">
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
-                <img
+                <Image
                   src=""
                   alt="Product Image"
                   width={600}
@@ -59,7 +60,7 @@ export default function CarousselProductHome() {
           <div className="p-1">
             <Card>
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center p-6">
-                <img
+                <Image
                   src=""
                   alt="Product Image"
                   width={600}

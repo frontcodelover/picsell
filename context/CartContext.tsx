@@ -1,25 +1,11 @@
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
-
-// Type pour un produit dans le panier
-type CartItem = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-};
-
-// Type pour les valeurs du contexte
-type CartContextType = {
-  cartItems: CartItem[];
-  addItemToCart: (item: CartItem) => void;
-  removeItemFromCart: (id: number) => void;
-  clearCart: () => void;
-};
+import { CartItem } from '@/types/cardItem';
+import { CartContextType } from '@/types/cardItem';
 
 // Valeur par défaut pour le contexte
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const useCart = () => {
+export const UseCart = () => {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart doit être utilisé à l'intérieur de CartProvider");

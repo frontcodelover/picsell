@@ -7,22 +7,21 @@ import { useUser } from '@/context/UserContext';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { supabase } from '@/lib/initSupabase';
 import Photos from './photos';
+import { Photo } from '@/types/photographers';
 // Import de ReactQuill avec désactivation du SSR
 
 const BioProfil = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const authUser = useUser();
-  const router = useRouter();
-  const [profilePic, setProfilePic] = useState(user?.avatar_url);
-  const [bannerPic, setBannerPic] = useState(user?.banner_url);
-  const [photos, setPhotos] = useState<any[]>([]);
+  const [profilePic] = useState(user?.avatar_url);
+  const [bannerPic] = useState(user?.banner_url);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null as string | null);
 
-  let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
+  const bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
   const username = user.username;
 
@@ -69,8 +68,6 @@ const BioProfil = ({ user }: { user: User }) => {
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur: {error}</p>;
-
-  console.log('PHOTOS:', photos);
 
   return (
     <div>
@@ -120,7 +117,7 @@ const BioProfil = ({ user }: { user: User }) => {
           </p>
         </div>
 
-        <Photos photos={photos} />
+        <Photos photos={photos} user={user} />
 
         <Card id='longbio' className='w-full'>
           <CardHeader className='text-xl uppercase font-extrabold ml-4 mb-[-25px]'>

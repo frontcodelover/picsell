@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation'; // Importer le hook pour l'utilisateur et les traductions
 import { User } from '@/types/user';
 import { useUser } from '@/context/UserContext';
@@ -7,12 +7,10 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import dynamic from 'next/dynamic'; // Import dynamique de ReactQuill
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify'; //
-import Photographe from '@/src/pages/photographe/[username]';
 import useCustomToast from '@/hooks/useCustomToast';
 import PhotoProfile from './photoProfile';
 import BannerProfile from './bannerProfile';
 import { Button } from '../ui/button';
-import AddPhotos from './addPhotos';
 import Photos from './photos';
 import { useFetch } from '@/hooks/useFetch';
 import Link from 'next/link';
@@ -51,7 +49,7 @@ const EditBioPage = ({ user }: { user: User }) => {
       ALLOWED_ATTR: ['href'],
     });
     // Mise à jour de la bio dans Supabase avec le HTML stylé
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('users')
       .update({
         bio: sanitizedBio,
@@ -70,53 +68,11 @@ const EditBioPage = ({ user }: { user: User }) => {
     }
   };
 
-  let bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
-
-  const colors = [
-    'background',
-    'foreground',
-    'card',
-    'card-foreground',
-    'popover',
-    'popover-foreground',
-    'primary',
-    'primary-foreground',
-    'secondary',
-    'secondary-foreground',
-    'muted',
-    'muted-foreground',
-    'accent',
-    'accent-foreground',
-    'destructive',
-    'destructive-foreground',
-    'border',
-    'input',
-    'ring',
-    'chart-1',
-    'chart-2',
-    'chart-3',
-    'chart-4',
-    'chart-5',
-  ];
+  const bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
   return (
     <div>
-      <div>
-        <p className='text-primary'>Texte en couleur primary</p>
-        <p className='text-accent'>Texte en couleur accent</p>
-        <p className='bg-success'>Fond en couleur success</p>
-        <p className='text-destructive'>Texte en couleur destructive</p>
-        <p className='text-accent bg-accent-foreground'>Texte en accent avec fond accent</p>
-      </div>
-      <div>
-        {colors.map((colorName) => (
-          <p key={colorName} className={`text-${colorName}`}>
-            {colorName}
-          </p>
-        ))}
-      </div>
       <BannerProfile user={user} />
-      <div className='text-black text-8xl'>COUCOU</div>
       <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
         <PhotoProfile user={user} />
         <div>

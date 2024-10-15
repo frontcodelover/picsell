@@ -2,7 +2,6 @@ import React from 'react';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { Photo } from '@/types/photographers';
 import AddPhotos from './addPhotos';
-import Image from 'next/image';
 import Link from 'next/link';
 import { User } from '@/types/user';
 
@@ -24,10 +23,10 @@ const Photos = ({ photos, user }: { photos: Photo[]; user: User }) => {
                 </div>
               </div>
               <Link href={`/photo/${photo.slug}`}>
-                <h3 className='text-md font-bold text-secondary'>{photo.title}</h3>
+                <h3 className='text-md font-bold'>{photo.title}</h3>
               </Link>
-                <div className='text-sm pb-2 text-secondary'>{user.username}</div>
-              <p className='text-md font-semibold text-secondary'>A partir de {photo.price} €</p>
+              <div className='text-sm pb-2'>{user.username}</div>
+              <p className='text-md font-semibold'>A partir de {photo.price} €</p>
             </div>
           ))}
           {user && <AddPhotos user={user} />}

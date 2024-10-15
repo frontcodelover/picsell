@@ -5,11 +5,11 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { supabase } from '@/lib/initSupabase';
 import { LuShoppingCart, LuUser2 } from 'react-icons/lu';
-import { useCart } from '@/context/CartContext';
+import { UseCart } from '@/context/CartContext';
 
 const UserNavigation = () => {
   const { t, currentUserId, ready } = useUserAndTranslation(); // hook de traduction et d'utilisateur
-  const { cartItems } = useCart(); // hook du panier
+  const { cartItems } = UseCart(); // hook du panier
 
   if (!ready) return null; // Si l'état n'est pas prêt, ne rien afficher
 

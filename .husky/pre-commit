@@ -1,0 +1,17 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Lancer ESLint pour vérifier le code
+npm run lint || {
+  echo '💥 ❌ ESLint Errors'
+  exit 1
+}
+
+# Vérifier TypeScript sans générer de fichiers
+npm run tsc --noEmit || {
+  echo '🙈 ❌ TypeScript Errors'
+  exit 1
+}
+
+# Si tout va bien
+echo '🚀 ✅ All checks passed!'

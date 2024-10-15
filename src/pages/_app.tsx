@@ -4,7 +4,6 @@ import { appWithTranslation } from 'next-i18next';
 import '@/lib/i18n';
 import Header from '@/components/header/header';
 import { UserProvider } from '@/context/UserContext';
-import { poppins } from '@/fonts/poppins';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/footer/footer';
 import { CartProvider } from '@/context/CartContext';

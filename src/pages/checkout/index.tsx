@@ -1,11 +1,11 @@
 import React from 'react';
 import BaseLayout from '@/layouts/baseLayout';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useCart } from '@/context/CartContext';
+import { UseCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 
 const index = () => {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart } = UseCart();
 
   return (
     <BaseLayout>

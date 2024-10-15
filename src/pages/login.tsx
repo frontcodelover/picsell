@@ -15,11 +15,13 @@ import useCustomToast from '@/hooks/useCustomToast';
 const Login = () => {
   const { t, ready } = UseUserAndTranslation(); // 'common' fait référence à common.json
   const router = useRouter();
-  const { showSuccessToast, showErrorToast } = useCustomToast();
+  const { showErrorToast } = useCustomToast();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  console.log(error);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

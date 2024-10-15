@@ -2,13 +2,10 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import HomepageImg from '@/images/homepage.jpg';
-import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
 import TextBox from '@/components/homepage/TextBox';
 import CarousselHome from '@/components/caroussel/CarousselHome';
 import CarousselProductHome from '@/components/caroussel/CarousselProductHome';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
-import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const { t, ready } = useUserAndTranslation();

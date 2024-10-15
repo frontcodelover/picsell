@@ -49,7 +49,7 @@ const BannerProfile: React.FC<PhotoProfileProps> = ({ user }) => {
     setLoading(true);
 
     const fileName = `${Date.now()}_${user.username}_${file.name}`;
-    const { data, error: uploadError } = await supabase.storage.from('banners').upload(`public/${fileName}`, file);
+    const { error: uploadError } = await supabase.storage.from('banners').upload(`public/${fileName}`, file);
 
     if (uploadError) {
       showErrorToast(t('photographerspage.errordonwload'), t('photographerspage.errordonwloadtitle'));
@@ -70,7 +70,6 @@ const BannerProfile: React.FC<PhotoProfileProps> = ({ user }) => {
 
     setLoading(false);
   };
-
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
