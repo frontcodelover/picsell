@@ -13,7 +13,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['poppins', 'sans-serif'], // On définit la famille Roboto
+				sans: ['var(--font-noto)', 'sans-serif'], // On définit la famille Roboto
       },
       borderRadius: {
         lg: 'var(--radius)',

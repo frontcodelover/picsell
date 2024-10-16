@@ -1644,7 +1644,7 @@ select {
 }
 
 .font-poppins {
-  font-family: poppins, sans-serif;
+  font-family: noto, sans-serif;
 }
 
 .text-2xl {

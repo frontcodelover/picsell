@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
+import { noto } from '@/fonts/noto';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='fr' className='h-full'>
+    <html lang='fr' className={`h-full ${noto.className}`}>
       <body className='h-full flex flex-col'>{children}</body>
     </html>
   );

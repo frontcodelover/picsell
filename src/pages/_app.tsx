@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/footer/footer';
 import { CartProvider } from '@/context/CartContext';
 
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
