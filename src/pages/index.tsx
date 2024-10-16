@@ -11,6 +11,7 @@ export default function Home() {
   const { t, ready } = useUserAndTranslation();
 
   if (!ready) return null;
+	
 
   return (
     <main className='bg-muted'>
