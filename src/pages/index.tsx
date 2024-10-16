@@ -6,19 +6,25 @@ import TextBox from '@/components/homepage/TextBox';
 import CarousselHome from '@/components/caroussel/CarousselHome';
 import CarousselProductHome from '@/components/caroussel/CarousselProductHome';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Home() {
   const { t, ready } = useUserAndTranslation();
 
   if (!ready) return null;
-	
 
   return (
     <main className='bg-muted'>
       <div className='relative'>
-        <Image src={HomepageImg} alt='homepage' className='h-[400px] w-screen object-cover' />
-        <div className='absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50'>
-          <h1 className='text-4xl font-extrabold'>{t('baseline')}</h1>
+        <Image src={HomepageImg} alt='homepage' className='h-screen w-screen object-cover' />
+        <div className='absolute inset-0 flex flex-col justify-end text-white bg-black bg-opacity-50'>
+          <h1 className='text-4xl font-light mb-6 ml-10'>{t('baseline')}</h1>
+          <Link href='/products' passHref>
+            <Button className='flex ml-10 mb-40 mt-2 w-fit text-lg font-normal p-6 rounded-3xl bg-white'>
+              Découvrir le projet
+            </Button>
+          </Link>
         </div>
       </div>
       <div className='m-auto w-6/12 py-6'>

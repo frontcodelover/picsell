@@ -7,7 +7,7 @@ import { UserNavigation } from '@/components/menu/userNavigation';
 
 const Header = () => {
   return (
-    <div className='py-2 border-b'>
+    <div className='py-2 border-b relative'>
       <div className='flex items-center w-[calc(100%-5rem)] m-auto'>
         <div>
           <Link href='/'>
