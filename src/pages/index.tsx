@@ -22,7 +22,7 @@ export default function Home() {
           <h1 className='text-4xl font-light mb-6 ml-10'>{t('baseline')}</h1>
           <Link href='/products' passHref>
             <Button className='flex ml-10 mb-40 mt-2 w-fit text-lg font-normal p-6 rounded-3xl bg-white'>
-              Découvrir le projet
+              Découvrir le projet.
             </Button>
           </Link>
         </div>
