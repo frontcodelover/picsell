@@ -1,6 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Vérifier les tests
+npm run test || {
+	echo '🔥 ❌ Tests failed'
+	exit 1
+}
+
 # Lancer ESLint pour vérifier le code
 npm run lint || {
   echo '💥 ❌ ESLint Errors'
