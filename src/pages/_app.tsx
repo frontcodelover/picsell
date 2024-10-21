@@ -1,3 +1,4 @@
+import React from 'react';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
@@ -7,7 +8,6 @@ import { UserProvider } from '@/context/UserContext';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/footer/footer';
 import { CartProvider } from '@/context/CartContext';
-
 
 function App({ Component, pageProps }: AppProps) {
   return (

@@ -1,3 +1,4 @@
+import React from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"

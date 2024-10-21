@@ -114,14 +114,14 @@ const AddPhotos = ({ user }: { user: User }) => {
                 <DialogTrigger asChild>
                   <Button className='absolute'>{t('photographerspage.addphoto')}</Button>
                 </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader className='pb-4'>
+                <DialogContent className='w-8/12  max-w-none'>
+                  <DialogHeader className='pb-4 w-full max-w-none'>
                     <DialogTitle>{t('photographerspage.addphoto')}</DialogTitle>
                     <DialogDescription>Remplis les informations pour ajouter ta photo.</DialogDescription>
                   </DialogHeader>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className='flex items-center gap-6 pb-4 justify-center'>
-                      <div className='flex flex-col gap-4'>
+                  <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-none'>
+                    <div className='flex items-center gap-6 pb-4 justify-center w-full max-w-none'>
+                      <div className='flex flex-col gap-4 flex-1'>
                         <div>
                           <label htmlFor='title' className='block text-sm font-semibold pb-1'>
                             {t('addphoto.title')}
@@ -163,7 +163,7 @@ const AddPhotos = ({ user }: { user: User }) => {
                         </div>
                       </div>
 
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-4 flex-1'>
                         <div>
                           <label htmlFor='impression' className='block text-sm font-semibold pb-1'>
                             {t('addphoto.impression')}
@@ -216,7 +216,6 @@ const AddPhotos = ({ user }: { user: User }) => {
                         </div>
                       </div>
                     </div>
-
                     <div>
                       <label htmlFor='image' className='block text-sm font-semibold pb-1'>
                         {t('addphoto.image')}
