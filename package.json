@@ -53,6 +53,7 @@
     "@babel/preset-typescript": "^7.25.7",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/dompurify": "^3.0.5",
     "@types/jest": "^29.5.13",
     "@types/next": "^8.0.7",
