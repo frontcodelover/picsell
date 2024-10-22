@@ -9,9 +9,11 @@ const PhotoSlug = () => {
   const {
     query: { slug },
   } = useRouter();
-  
+
+	console.log(slug);
+
   // Utilisation de `photo` et `photographer` pour correspondre à l'utilisation plus bas
-  const [photoData, setPhotoData] = useState<{ photo: Photo | null, photographer: User | null }>({ photo: null, photographer: null });
+  const [photoData, setPhotoData] = useState<{ photo: Photo | null; photographer: User | null }>({ photo: null, photographer: null });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,9 +48,7 @@ const PhotoSlug = () => {
   return (
     <div className='w-10/12 mx-auto mt-10'>
       {/* Passer `photoData.photo` et `photoData.photographer` correctement au composant Single */}
-      {photoData.photo && photoData.photographer && (
-        <Single photo={photoData.photo} photographer={photoData.photographer} />
-      )}
+      {photoData.photo && photoData.photographer && <Single photo={photoData.photo} photographer={photoData.photographer} />}
     </div>
   );
 };

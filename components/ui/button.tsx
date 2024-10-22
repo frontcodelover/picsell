@@ -21,7 +21,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-				default: 'bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-white font-semibold transition duration-500',	
+				default: 'bg-primary text-white hover:bg-primary-foreground hover:text-white font-semibold transition duration-500',	
         secondary: 'border border-black bg-white text-black hover:bg-black hover:text-white font-semibold transition duration-500',
         linky: 'text-[#003566] bg-transparent underline-offset-2 hover:underline font-semibold transition duration-500',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold transition duration-500',

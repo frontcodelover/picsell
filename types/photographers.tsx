@@ -38,3 +38,10 @@ export interface Photographer {
 	tiktok: string;
 	slug: string;
 }
+
+export type PhotoSearch = {
+	id: string;
+	title: string;
+	description: string;
+	url: string;
+}
