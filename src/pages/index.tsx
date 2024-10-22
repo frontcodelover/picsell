@@ -24,7 +24,7 @@ export default function Home() {
         <div className='absolute inset-0 flex flex-col justify-end text-white bg-black bg-opacity-50'>
           <h1 className='text-4xl font-light mb-6 ml-10'>{t('baseline')}</h1>
           <Link href='/products' passHref>
-            <Button className='flex ml-10 mb-40 mt-2 w-fit text-lg font-normal p-6 rounded-3xl bg-white'>Découvrir le projet.</Button>
+            <Button className='flex ml-10 mb-40 mt-2 w-fit text-lg font-normal p-6 rounded-3xl bg-white text-black'>Découvrir le projet.</Button>
           </Link>
         </div>
       </div>

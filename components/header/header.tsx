@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Logo from '@/images/logo.jpg';
 import { Navigation } from '@/components/menu/navigation';
 import { UserNavigation } from '@/components/menu/userNavigation';
+import SearchForm from '@/components/header/searchForm';
 
 const Header = () => {
   return (
@@ -17,8 +18,13 @@ const Header = () => {
         <div className='flex-grow'>
           <Navigation />
         </div>
-        <div className='ml-auto'>
-          <UserNavigation />
+        <div className='flex items-center justify-center gap-2'>
+          <div>
+            <SearchForm />
+          </div>
+          <div>
+            <UserNavigation />
+          </div>
         </div>
       </div>
     </div>

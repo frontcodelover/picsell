@@ -8,7 +8,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className='bg-primary-foreground text-white p-4 text-center w-full'>
+    <footer className='bg-primary-foreground text-white p-4 text-center w-full mt-16'>
       <p>&copy; {getYear()} Picsell</p>
       {/*Ajouter des liens classiques des ecommerce*/}
       <div className='flex justify-center space-x-4'>

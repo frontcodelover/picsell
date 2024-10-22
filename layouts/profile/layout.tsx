@@ -4,7 +4,7 @@ import { ProfileLayoutProps } from '@/types/layout';
 
 const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
   return (
-    <main className='min-h-[calc(100vh-4rem)] flex items-start justify-center bg-muted/40 p-4'>
+    <main className='min-h-[calc(100vh-4rem)] flex items-start justify-center p-4'>
       <div className='flex w-full max-w-6xl gap-6 py-8'>
 				<Menu />
         {children}

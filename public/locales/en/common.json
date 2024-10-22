@@ -99,7 +99,7 @@
     "weight": "Weight (g)",
     "image": "Image file",
     "uploading": "Uploading...",
-    "submit": "Add the photo"
+    "submit": "Submit"
   },
   "cgv": {
     "cgv": "General Terms and Conditions of Sale (GTC)",
@@ -170,6 +170,6 @@
   "seller": {
     "isseller": "Photo selling enabled",
     "active": "Activate photo selling",
-		"modifyProfile" : "Modify your profile"
+    "modifyProfile": "Modify your profile"
   }
 }

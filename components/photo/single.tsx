@@ -9,7 +9,7 @@ import useUserAndTranslation from '@/hooks/useUserAndTranslation';
 import { Photo } from '@/types/photographers';
 import { User} from '@/types/user';
 
-interface SingleProps {
+type SingleProps = {
   photo: Photo;
   photographer: User;
 }
@@ -74,11 +74,11 @@ const Single: React.FC<SingleProps> = ({ photo, photographer }) => {
                 </Button>
               </span>
             </CustomTooltip>
-            <div className='font-semibold text-lg mt-4'>
-              {t('single.shipping')} {photo.shipping_delay} {t('single.days')}
+            <div className='text-sm mt-4'>
+						<span className='font-semibold'>{t('single.shipping')} :</span> {photo.shipping_delay} {t('single.days')}
             </div>
-            <div className='font-semibold text-lg'>
-              {t('single.shippingmethod')} {photo.shipping_method}
+            <div className='text-sm'>
+						<span className='font-semibold'>{t('single.shippingmethod')} :</span> {photo.shipping_method}
             </div>
             <div className='text-lg font-extrabold pt-6 uppercase'>{t('single.description')}</div>
             <div className='italic text-sm'>{photo.description}</div>
