@@ -1,16 +1,19 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Image from 'next/image';
-import HomepageImg from '@/images/homepage.jpg';
 import TextBox from '@/components/homepage/TextBox';
 import CarousselHome from '@/components/caroussel/CarousselHome';
 import useUserAndTranslation from '@/hooks/useUserAndTranslation';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { ImageBoxAndText } from '@/components/homepage/imageBoxAndText';
 import placeholder from '@/images/placeholder.jpg';
 import { Title } from '@/components/ui/title';
+import { Hero } from '@/components/header/hero';
+import { Subtitle } from '@/components/ui/subtitle';
+import Tokyo from '@/images/tokyo.jpg';
+import Kyoto from '@/images/kyoto.jpg';
+import Fujisan from '@/images/fujisan.jpg';
+import Hanoi from '@/images/hanoi.jpg';
+import { HightPhotos } from '@/components/homepage/hightPhotos';
 
 export default function Home() {
   const { t, ready } = useUserAndTranslation();
@@ -19,27 +22,20 @@ export default function Home() {
 
   return (
     <>
-      <div className='relative'>
-        <Image src={HomepageImg} alt='homepage' className='h-screen w-screen object-cover' />
-        <div className='absolute inset-0 flex flex-col justify-end text-white bg-black bg-opacity-50'>
-          <h1 className='text-4xl font-light mb-6 ml-10'>{t('baseline')}</h1>
-          <Link href='/products' passHref>
-            <Button className='flex ml-10 mb-40 mt-2 w-fit text-lg font-normal p-6 rounded-3xl bg-white text-black'>Découvrir le projet.</Button>
-          </Link>
-        </div>
-      </div>
+      <Hero />
 
-      <div className='m-auto w-10/12 py-6 flex flex-col gap-8'>
-        <Title text={'Notre sélection'} size={'4xl'} />
+      <div className='m-auto w-10/12 py-6 flex flex-col'>
+        <div className='flex flex-col mb-8'>
+          <Title text={"Notre sélection d'oeuvres d'art"} size={'4xl'} />
+          <Subtitle text={'Découvrez notre artiste du moment'} size={'text-xl'} />
+        </div>
         <div className='flex items-center justify-between gap-8'>
-					<div className='flex flex-col gap-8'>
-					<Image src={placeholder} alt='homepage' className='h-full object-cover rounded-lg' />
-          <Image src={placeholder} alt='homepage' className='h-full object-cover rounded-lg' />
-				 </div>
-					<div className='flex flex-col gap-8'>
-					<Image src={placeholder} alt='homepage' className='h-full object-cover rounded-lg' />
-          <Image src={placeholder} alt='homepage' className='h-full object-cover rounded-lg' />
-				 </div>
+          <div className='grid grid-cols-2 gap-5'>
+            <HightPhotos title='Kyoto' author='Nicolas Lucien Jean' photo={Kyoto} />
+            <HightPhotos title='Tokyo' author='Nicolas Lucien Jean' photo={Tokyo} />
+            <HightPhotos title='Hanoi' author='Nicolas Lucien Jean' photo={Hanoi} />
+            <HightPhotos title='Fujisan' author='Nicolas Lucien Jean' photo={Fujisan} />
+          </div>
         </div>
 
         <div className='flex flex-col justify-center gap-8'>

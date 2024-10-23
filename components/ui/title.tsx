@@ -6,5 +6,5 @@ type TitleProps = {
 };
 
 export const Title = ({ text, size }: TitleProps) => {
-  return <h2 className={`text-${size} font-extrabold uppercase tracking-tighter mt-8`}>{text}</h2>;
+  return <h2 className={`text-${size} font-extrabold tracking-[-.075em] mt-8`}>{text}</h2>;
 };
