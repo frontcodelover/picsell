@@ -1,3 +1,4 @@
+import React from 'react';
 import { supabase } from '@/lib/initSupabase';
 import { GetServerSideProps } from 'next';
 import BioProfil from '@/components/photographer/bio';

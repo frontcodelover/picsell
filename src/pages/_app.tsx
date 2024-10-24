@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
@@ -14,12 +14,8 @@ function App({ Component, pageProps }: AppProps) {
     <UserProvider>
       <CartProvider>
         <div className='flex flex-col min-h-screen'>
-          {' '}
-          {/* Utilisation de flexbox sur toute la hauteur */}
           <Header />
           <main className='flex-1'>
-            {' '}
-            {/* Flex-1 pour prendre tout l'espace disponible */}
             <Component {...pageProps} />
           </main>
           <Toaster />
@@ -29,4 +25,5 @@ function App({ Component, pageProps }: AppProps) {
     </UserProvider>
   );
 }
+
 export default appWithTranslation(App);
