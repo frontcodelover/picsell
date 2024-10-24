@@ -38,9 +38,7 @@ const UserNavigation = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem className='relative'>
-        </NavigationMenuItem>
-
+        {/* Icone de profil avec menu déroulant */}
         <NavigationMenuItem>
           <NavigationMenuTrigger className='hover:bg-black hover:text-black'>
             <LuUser2 className='h-5 w-5 hover:text-white' />
@@ -49,7 +47,9 @@ const UserNavigation = () => {
             <ul className='space-y-2'>
               <li>
                 <Link href='/profile/informations' passHref>
-                  <NavigationMenuLink className='hover:text-primary'>{t('profile')}</NavigationMenuLink>
+                  <NavigationMenuLink asChild>
+                    <div className='hover:text-primary'>{t('profile')}</div>
+                  </NavigationMenuLink>
                 </Link>
               </li>
               <li>
@@ -63,14 +63,14 @@ const UserNavigation = () => {
 
         {/* Shopping Cart Icon avec badge */}
         <NavigationMenuItem className='relative'>
-          <Link href='/checkout' passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <div className='relative'>
+          <NavigationMenuLink asChild>
+            <Link href='/checkout' passHref>
+              <div className={navigationMenuTriggerStyle()}>
                 <LuShoppingCart className={`${cartStyle()} h-5 w-5`} />
                 {renderCartBadge()}
               </div>
-            </NavigationMenuLink>
-          </Link>
+            </Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
