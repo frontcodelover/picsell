@@ -15,8 +15,10 @@ import Fujisan from '@/images/fujisan.jpg';
 import Hanoi from '@/images/hanoi.jpg';
 import { HightPhotos } from '@/components/homepage/hightPhotos';
 
+
 export default function Home() {
   const { t, ready } = useUserAndTranslation();
+	
 
   if (!ready) return null;
 
