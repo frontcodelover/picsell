@@ -14,8 +14,6 @@ import { LuQuote } from 'react-icons/lu';
 const BioProfil = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
   const authUser = useUser();
-  const [profilePic] = useState(user?.avatar_url);
-  const [bannerPic] = useState(user?.banner_url);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null as string | null);

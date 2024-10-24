@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
