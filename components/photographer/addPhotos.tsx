@@ -47,7 +47,7 @@ const AddPhotos = ({ user }: { user: User }) => {
   });
 
   const onSubmit = async (data: PhotoFormData) => {
-    if (!user) return; // Vérifie que l'utilisateur est connecté
+    if (!user) return; 
     try {
       setUploading(true);
       const uuid = self.crypto.randomUUID();
