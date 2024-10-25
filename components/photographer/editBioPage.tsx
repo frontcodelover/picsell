@@ -5,18 +5,19 @@ import { useUser } from '@/context/UserContext';
 import { supabase } from '@/lib/initSupabase'; // Importer Supabase pour vérifier l'authentification
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import dynamic from 'next/dynamic'; // Import dynamique de ReactQuill
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import DOMPurify from 'dompurify'; //
 import useCustomToast from '@/hooks/useCustomToast';
-import PhotoProfile from './photoProfile';
-import BannerProfile from './bannerProfile';
+// import PhotoProfile from './photoProfile';
+// import BannerProfile from './bannerProfile';
 import { Button } from '../ui/button';
 import Photos from './photos';
 import { useFetch } from '@/hooks/useFetch';
 import Link from 'next/link';
 
 // Import de ReactQuill avec désactivation du SSR
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 const EditBioPage = ({ user }: { user: User }) => {
   const { t } = useUserAndTranslation();
@@ -71,11 +72,17 @@ const EditBioPage = ({ user }: { user: User }) => {
   const bioshorted = user.bio ? user?.bio?.substring(0, 210) + (user?.bio?.length > 210 ? '...' : '') : t('photographerspage.nobio');
 
   return (
-    <div>
-      <BannerProfile user={user} />
-      <section className='flex items-center justify-center flex-col gap-8 xl:w-10/12 max-w-full m-auto'>
-        <PhotoProfile user={user} />
-        <div>
+		<div>
+      {/* <BannerProfile user={user} /> */}
+      <section className='flex items-center justify-center flex-col gap-8 max-w-full m-auto'>
+				<div className='bg-red-500 w-full text-center text-white py-8 flex flex-col gap-4 justify-center'>Mode édition du profil vendeur
+					
+					<div className='underline'><Link href={`/photographe/${user?.username}`}>Retour au profil public</Link></div>
+
+				</div>
+        {/* <PhotoProfile user={user} /> */}
+				<div className='w-10/12'>
+				<div>
           <h1 className='text-3xl font-extrabold uppercase'>{user?.username}</h1>
         </div>
         <div>
@@ -97,7 +104,7 @@ const EditBioPage = ({ user }: { user: User }) => {
           </CardHeader>
           <CardContent className='w-full'>
             {isEditing ? (
-              <>
+							<>
                 <ReactQuill
                   theme='snow'
                   value={updatedBio}
@@ -108,7 +115,7 @@ const EditBioPage = ({ user }: { user: User }) => {
                     setUpdatedBio(htmlContent);
                   }}
                   className='mx-auto my-4'
-                />
+									/>
                 <div className='flex gap-4 '>
                   <button onClick={handleSaveBio} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700'>
                     Sauvegarder
@@ -119,13 +126,14 @@ const EditBioPage = ({ user }: { user: User }) => {
                 </div>
               </>
             ) : (
-              <>
+							<>
                 <div dangerouslySetInnerHTML={{ __html: user.bio || '' }} className='mx-auto my-4'></div>
                 <Button onClick={() => setIsEditing(true)}>{t('photographerspage.edit')}</Button>
               </>
             )}
           </CardContent>
         </Card>
+						</div>
       </section>
     </div>
   );
