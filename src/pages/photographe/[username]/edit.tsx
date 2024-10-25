@@ -10,7 +10,7 @@ const Edit = () => {
   const authUser = useUser();
   const router = useRouter();
   const { t } = useUserAndTranslation();
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
   // useEffect pour gérer l'ouverture du modal et le stockage dans le localStorage
   useEffect(() => {
